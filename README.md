@@ -7,7 +7,7 @@ Web platform for displaying and monitoring student competences and skills.
 * Start of project application development: 30/10/2018
 * End of project application development: 14/05/2019
 
-I am currently trying to improve the old code, and change everything to English.
+I am currently trying to improve the old code, and change everything to English. So sorry if you maybe see bad practices, at that time I was inexperienced, on readability issues for other programmers. So I promise to improve that on the project when I have free time.
 
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
