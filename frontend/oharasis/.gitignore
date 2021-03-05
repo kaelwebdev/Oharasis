@@ -39,4 +39,4 @@ testem.log
 Thumbs.db
 
 # Custom
-./src/environments/environment.ts
+src/environments/enviroment.ts
