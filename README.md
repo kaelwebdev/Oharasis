@@ -33,6 +33,20 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 Assuming you want to use your own database, or the test database is not active, you should have your own using a firebase account.
 
 1. Add your database credentials `oharasis/frontend/oharasis/src/enviroments/enviroments.ts`
+```
+export const environment = {
+  production: false,
+  firebase : {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: ""
+  }
+ 
+};
+```
 2. Create a user of type admin directly from firebase. check the interface `/frontend/oharasis/src/app/interfaces/usuario.interface.ts`
 
 > *Note: existing roles are "Estudiante", "Profesor", "Director" y "Admin"*.
@@ -49,8 +63,8 @@ Assuming you want to use your own database, or the test database is not active, 
 
 name | command | version | description
 --- | --- | --- | ---
-nodejs | `sin comando` | ^10.12.0 | *requirement for angular*
-npm | `sin comando` | ^6.4.1 | *requirement for angular*
+nodejs | `no command` | ^10.12.0 | *requirement for angular*
+npm | `no command` | ^6.4.1 | *requirement for angular*
 Angular | `npm install -g @angular/cli` | ^7.1.0 | *frontend framework*
 
 
