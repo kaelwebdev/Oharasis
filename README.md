@@ -4,16 +4,22 @@ Web platform for displaying and monitoring student competences and skills.
 * thesis: http://bibliotecadigital.usb.edu.co/handle/10819/7428
 * trailer: https://drive.google.com/file/d/1rSq6nrCUELe-vkVTu7MbEuZaNs648pJI/view
 
+* start of research: 06/2018
+* start of project application development: 2018-10-30
+* end of project application development: 2019-05-14
+
+
 ## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
 ## Author :copyright:
-* **Carlos Daniel Cortez** - [kaelwebdev](https://github.com/kaelwebdev)
-* **Juan Pablo Abadia** - [jpabadia](https://github.com/jpabadia)
 
-# project dependencies
-## Librerías y framework para instalar en el PC/frontend
-nombre | comando | versión | descripción
+* **Juan Pablo Abadia** - [jpabadia](https://github.com/jpabadia)
+* **Carlos Daniel Cortez** - [kaelwebdev](https://github.com/kaelwebdev)
+
+# Project dependencies
+## Libraries and framework to install on the PC / frontend
+name | command | versión | descripción
 --- | --- | --- | ---
 nodejs | `sin comando` | ^10.12.0 | *requisito para angular*
 npm | `sin comando` | ^6.4.1 | *requisito para angular*
