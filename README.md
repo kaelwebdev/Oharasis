@@ -1,11 +1,18 @@
 # Oharasis
 
 Web platform for displaying and monitoring student competences and skills.
+* thesis: http://bibliotecadigital.usb.edu.co/handle/10819/7428
+* trailer: https://drive.google.com/file/d/1rSq6nrCUELe-vkVTu7MbEuZaNs648pJI/view
 
-# License
+## License
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
-# Librerías y framework para instalar en el PC/frontend
+## Author :copyright:
+* **Carlos Daniel Cortez** - [kaelwebdev](https://github.com/kaelwebdev)
+* **Juan Pablo Abadia** - [jpabadia](https://github.com/jpabadia)
+
+# project dependencies
+## Librerías y framework para instalar en el PC/frontend
 nombre | comando | versión | descripción
 --- | --- | --- | ---
 nodejs | `sin comando` | ^10.12.0 | *requisito para angular*
@@ -13,7 +20,7 @@ npm | `sin comando` | ^6.4.1 | *requisito para angular*
 typescript | `npm install typescript` | ^3.1.6 | *requisito para angular*
 Angular | `npm install -g @angular/cli` | ^7.1.0 | *framework para el frontend del proyecto*
 
-# Librerías y APIs para instalar en angular/frontend
+## Librerías y APIs para instalar en angular/frontend
 nombre | comando | versión | descripción
 --- | --- | --- | ---
 jquery | `npm install jquery --save` | ^3.3.1 | *requisito para bootstrap*
@@ -40,7 +47,7 @@ nodemailer, nodemon | `npm install express body-parser cors nodemailer -- save &
 
 > *Nota: Si están identificados por package.json, bastará con ejecutar `npm install` para instalar automaticamente todos los Librerías y APIs*.
 
-# Guia de instalaicion
+## Guia de instalaicion
 0. Instalar las Librerías y APIs para instalar en el PC/frontend, como se describió anteriormente.
 1. Descargar la carpeta Oharasis al escritorio o carpeta local del pc.
 2. Abrir la consola de comandos  situado dentro de oharasis/backend
