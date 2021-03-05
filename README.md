@@ -75,7 +75,7 @@ Three.js  | `npm install three.js@0.97.0` | ^0.97.0 | *3D rendering engine-avata
 
 > *Note: If they are identified by package.json, just run `npm install` to automatically install all libraries and APIs*.
 
-# Libraries used in in backend folder
+## Libraries used in in backend folder
 
 name | command | description
 --- | --- | ---
