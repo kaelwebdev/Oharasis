@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Oharasis</title>
+    <base href="/">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta http-equiv="x-ua-compatible" content="ie=edge"> -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- Para LTE - IonIcons -->
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Para LTE - Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+    <app-root></app-root>
+
+    <!-- si se va usar en todo e proyecto ponerlo en angular.json como: -->
+    <!-- "node_modules/admin-lte/plugins/chart.js/Chart.min.js", -->
+    <!-- <script src="./assets/js-lte/Chart.min.js"></script> -->
+    <!-- se comento chart.min.js del index porque ya lo genera el componente
+que lo necesita -->
+    <!-- <script>  alert( $().jquery );</script> -->
+
+    <!-- 
+se quito "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min.js"
+de angular.json despues de jquery.min ya que afectaba a bootstrap.min.js
+se quito el script bootstrap.min.js de aqui porque ahora si funciona global
+tambien se quito "node_modules/admin-lte/plugins/jquery/jquery.min.js" de angular.json
+se cambio "node_modules/jquery/dist/jquery.slim.min.js"
+por "node_modules/jquery/dist/jquery.min.js"
+
+
+CONCLUSION:
+Problema: primero se cargan los scripts de los componentes, y luego los de angular.
+Descripcion: Es decir, si instalo jquery(node_modules) y lo delcaro globalmente (angular.json),
+no basta para ser reconocido por algun script dentro del html de algun componente(ej:index.html)
+porque jquey seria cargado despues del script del componente. jquery si cargara pero en
+el orden inadecuado para la situacion. Es decir cargara al final del body html de la app.
+
+Nota: 
+Con el css no hay problema ya que estos se declaran antes de llamar al componente
+a causa de la estructura de un html.
+
+Solucion: usar codigo desdes .ts del componente para llamar al script. Esto cargaria el
+script en el orden adecuado. Siguiendo el ejemplo primero se cargaria jquery y luego 
+se cargaria el script del componente. haciendo de que el script del componente reconzca
+sintaxis jquery.
+
+Consecuencias de la solucion: tendria que insertarse
+el script por cada componente que lo necesite.
+
+-->
+
+</body>
+
+</html>

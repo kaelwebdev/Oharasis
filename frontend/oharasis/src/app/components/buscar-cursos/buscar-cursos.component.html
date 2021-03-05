@@ -1,0 +1,319 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Listado de cursos</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Cursos
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <form [formGroup]="forma" novalidate="novalidate">
+
+                <div class="row w-100  justify-content-between card-filtro pt-1 pb-1 ml-0">
+                    <div class="col-12">
+                        <h4 class="title-filter">Filtro</h4>
+                    </div>
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Año</label>
+                            <select class="form-control select-center select-hover" id="" formControlName="flYears">
+                                <option value="">Seleccione un año</option>
+                                <option *ngFor="let year of years" [value]="year">{{year}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Periodo</label>
+                            <select class="form-control select-center select-hover" id="" formControlName="flPeriodos">
+                            <option value="">Seleccione un Periodo</option>
+                            <option *ngFor="let periodo of periodos" [value]="periodo.id">{{periodo.id}}</option>
+                        </select>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <button *ngIf="filtrar" (click)="cancelarFiltro()" class="btn btn-warning mb-1">
+                                <i class="fas fa-filter pr-1"></i>Cancelar</button>
+                    </div>
+                </div>
+
+                <div class="alertas">
+                    <div *ngIf="forma.controls['flYears'].value != '' && forma.controls['flPeriodos'].value == ''" class="alert alert-warning animated fadeIn fast" role="alert">
+                        Filtrando por <b>año</b> {{valFiltro[0]}}
+                    </div>
+                    <div *ngIf="forma.controls['flPeriodos'].value != '' && forma.controls['flYears'].value == ''" class="alert alert-warning animated fadeIn fast" role="alert">
+                        Filtrando por <b>periodo</b> {{valFiltro[1]}}
+                    </div>
+                    <div *ngIf="forma.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                        Filtrando por <b>año</b> {{valFiltro[0]}} y <b>periodo</b> {{valFiltro[1]}}
+                    </div>
+                </div>
+                <div class="row w-100 mt-3 ml-0">
+                    <div class="col d-flex justify-content-end p-0">
+                        <button *ngIf="cambio == false" (click)="change()" class="btn btn-primary"><i class="fas fa-th-list"> Lista</i></button>
+                        <button *ngIf="cambio == true" (click)="change()" class="btn btn-primary"><i class="fas fa-grip-horizontal"> Tarjeta</i></button>
+                    </div>
+
+                </div>
+
+
+
+                <!-- cards -->
+                <div *ngIf="cursos?.length > 0 
+                    && rolUser!='Estudiante' && cambio == false" class="d-flex flex-wrap justify-content-around pt-4 pb-4">
+                    <div *ngFor="let curso of cursos">
+                        <div class="">
+                            <div class="card hover-card pp" (click)="verEstudiantes(curso.d_id)">
+                                <div> {{curso.nombre}} </div>
+                                <hr>
+                                <div class="row d-flex justify-content-center pb-1">
+                                    <span class="badge badge-pill badge-info" data-toggle="tooltip" data-placement="right" title="Este campo corresponde al año"> A - {{curso.year}}</span>
+                                </div>
+                                <div class="row d-flex justify-content-center pb-1">
+                                    <span class="badge badge-pill badge-info" data-toggle="tooltip" data-placement="right" title="Este campo corresponde al periodo">P - {{curso.idPeriodo}}</span>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <span class="badge badge-pill badge-info" data-toggle="tooltip" data-placement="right" title="Este campo corresponde al grupo">G - {{curso.idGrupo}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/. cards -->
+                <!-- tabla director -->
+                <div class="table-responsive mt-3" *ngIf="cursos?.length > 0 
+                    && rolUser=='Director' && cambio == true">
+                    <table class="table table-light table-center rounded animated fadeIn fast">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Docente</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Año</th>
+                                <th scope="col">Periodo</th>
+                                <th scope="col">Grupo</th>
+                                <th scope="col">Creditos</th>
+                                <th scope="col">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let curso of cursos">
+                                <th scope="row">{{curso.d_id}}</th>
+                                <td>{{curso.nombre}} </td>
+                                <td>{{curso.d_idProfesor | realName:profesores:"d_id":"nombre"}} </td>
+                                <td>{{curso.idTipo}}</td>
+                                <td>{{curso.year}}</td>
+                                <td>{{curso.idPeriodo}}</td>
+                                <td>{{curso.idGrupo}}</td>
+                                <td>{{curso.creditos}}</td>
+                                <td><button (click)="verEstudiantes(curso.d_id)" class="btn btn-primary"> <i class="fas fa-eye pr-1"></i>Ver </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--./ tabla director -->
+                <!-- <div class="table-responsive mt-3" *ngIf="cursos?.length > 0 
+                  && rolUser!='Estudiante' && cambio == true">
+                    <table class="table table-light table-center rounded animated fadeIn fast">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">#</th>
+                                <th class="text-center" scope="col">Nombre</th>
+                                <th class="text-center" scope="col">Tipo</th>
+                                <th class="text-center" scope="col">Año</th>
+                                <th class="text-center" scope="col">Periodo</th>
+                                <th class="text-center" scope="col">Grupo</th>
+                                <th class="text-center" scope="col">Creditos</th>
+                                <th class="text-center" scope="col">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let curso of cursos; let i = index">
+                                <th class="text-center" scope="row">{{i+1}}</th>
+                                <td class="text-center">{{curso.nombre}} </td>
+                                <td class="text-center">{{curso.idTipo}}</td>
+                                <td class="text-center">{{curso.year}}</td>
+                                <td class="text-center">{{curso.idPeriodo}}</td>
+                                <td class="text-center">{{curso.idGrupo}}</td>
+                                <td class="text-center">{{curso.creditos}}</td>
+                                <td class="text-center"><button (click)="verEstudiantes(curso.d_id)" class="btn btn-primary"> <i class="fas fa-eye pr-1"></i>Ver </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+
+                <!-- tabla profesor -->
+                <div class="row">
+                    <div class="col-md-12 table-responsive mt-3" *ngIf="cursos?.length > 0 
+                        && rolUser!='Estudiante' && cambio == true">
+                        <div class="cardd">
+                            <div class="header">
+                                <h4 class="title">Lista de cursos</h4>
+                                <p class="category">Mis cursos</p>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-light table-center rounded animated fadeIn fast">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">#</th>
+                                                <th class="text-center" scope="col">Nombre</th>
+                                                <th class="text-center" scope="col">Tipo</th>
+                                                <th class="text-center" scope="col">Año</th>
+                                                <th class="text-center" scope="col">Periodo</th>
+                                                <th class="text-center" scope="col">Grupo</th>
+                                                <th class="text-center" scope="col">Creditos</th>
+                                                <th class="text-center" scope="col">Ver</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor=" let curso of cursos; let i = index">
+                                                <th class="text-center" scope="row">{{i+1}}</th>
+                                                <td class="text-center">{{curso.nombre}} </td>
+                                                <td class="text-center">{{curso.idTipo}}</td>
+                                                <td class="text-center">{{curso.year}}</td>
+                                                <td class="text-center">{{curso.idPeriodo}}</td>
+                                                <td class="text-center">{{curso.idGrupo}}</td>
+                                                <td class="text-center">{{curso.creditos}}</td>
+                                                <td class="text-center"><button (click)="verEstudiantes(curso.d_id)" class="btn btn-primary"> <i class="fas fa-eye pr-1"></i>Ver </button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- adelanto nuevas tablas -->
+
+
+                <ng-template class="i-feedback" #noItems>
+                    <div *ngIf="rolUser!='Estudiante' && cambio == true" class="alert alert-warning 
+                    animated fadeIn fast mt-1" role="alert">
+                        No hay cursos asignados
+                    </div>
+                </ng-template>
+
+                <!-- cards -->
+                <div *ngIf="cursos?.length > 0 
+                    && rolUser=='Estudiante' && cambio == false
+                    && ultimoCurso==conteoCurso" class="d-flex flex-wrap justify-content-around pt-4 pb-4">
+                    <div *ngFor="let regC of regsC">
+                        <div class="">
+                            <div class="card hover-card pp" (click)="verMiCalificacion(regC.d_idCurso)">
+                                <div> {{regC.d_idCurso | nombreCurso:cursos}} </div>
+                                <hr>
+                                <div class="row d-flex justify-content-center pb-1">
+                                    <span class="badge badge-pill badge-info">Corte 1 : {{regC.corte1 | number:'1.0-3'}}</span>
+                                </div>
+                                <div class="row d-flex justify-content-center pb-1">
+                                    <span class="badge badge-pill badge-info">Corte 2 : {{regC.corte2 | number:'1.0-3'}}</span>
+                                </div>
+                                <div class="row d-flex justify-content-center pb-1">
+                                    <span class="badge badge-pill badge-info">Corte 3 : {{regC.corte3 | number:'1.0-3'}}</span>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <span class="badge badge-pill badge-info">Definitiva : {{regC.definitiva | number:'1.0-3'}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/. cards -->
+
+                <!-- <div class="table-responsive mt-3" *ngIf="rolUser=='Estudiante'
+                && regsC?.length>0 && ultimoCurso==conteoCurso && cambio == true">
+                    <table class="table table-light table-center rounded animated fadeIn fast">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Corte 1</th>
+                                <th scope="col">Corte 2</th>
+                                <th scope="col">Corte 3</th>
+                                <th scope="col">Definitiva</th>
+                                <th scope="col">Ver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let regC of regsC">
+                                <th scope="row">{{regC.d_idCurso | nombreCurso:cursos}} </th>
+                                <td>{{regC.corte1}}</td>
+                                <td>{{regC.corte2}}</td>
+                                <td>{{regC.corte3}}</td>
+                                <td>{{regC.definitiva}}</td>
+                                <td><button (click)="verMiCalificacion(regC.d_idCurso)" class="btn btn-primary"> <i class="fas fa-eye pr-1"></i>Ver </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div> -->
+
+                <!-- tabla estudiante -->
+                <div class="row">
+                    <div class="col-md-12 table-responsive mt-3" *ngIf="rolUser=='Estudiante'
+                        && regsC?.length>0 && ultimoCurso==conteoCurso && cambio == true">
+                        <div class="cardd">
+                            <div class="header">
+                                <h4 class="title">Lista de cursos</h4>
+                                <p class="category">Mis cursos</p>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="content table-responsive table-full-width">
+                                    <table class="table table-light table-center rounded animated fadeIn fast">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">Nombre</th>
+                                                <th class="text-center" scope="col">Corte 1</th>
+                                                <th class="text-center" scope="col">Corte 2</th>
+                                                <th class="text-center" scope="col">Corte 3</th>
+                                                <th class="text-center" scope="col">Definitiva</th>
+                                                <!-- <th scope="col">Estado</th> -->
+                                                <th class="text-center" scope="col">Ver</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor=" let regC of regsC">
+                                                <th class="text-center" scope="row">{{regC.d_idCurso | nombreCurso:cursos}} </th>
+                                                <td class="text-center">{{regC.corte1 | number:'1.0-3' }}</td>
+                                                <td class="text-center">{{regC.corte2 | number:'1.0-3' }}</td>
+                                                <td class="text-center">{{regC.corte3 | number:'1.0-3' }}</td>
+                                                <td class="text-center">{{regC.definitiva | number:'1.0-3' }}</td>
+                                                <!-- <td>{{regC.estado}}</td>  -->
+                                                <td class="text-center"><button (click)="verMiCalificacion(regC.d_idCurso)" class="btn btn-primary"> <i class="fas fa-eye pr-1"></i>Ver </button></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <ng-template class="i-feedback" #noItems2>
+                    <div *ngIf="rolUser=='Estudiante' && cambio == true" class="alert alert-warning animated fadeIn fast mt-1" role="alert">
+                        No hay cursos matriculados
+                    </div>
+                </ng-template>
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Usuarios</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Usuarios
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <form [formGroup]="forma" novalidate="novalidate">
+                <div class="col d-flex justify-content-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Nombre o apellido</span>
+                            </div>
+                            <input class="form-control" placeholder="Nombre" formControlName="ftxtNombre" aria-label="First name" type="text">
+                            <input class="form-control" placeholder="Apellido" formControlName="ftxtApellido" aria-label="First name" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col d-flex justify-content-center">
+                        <button *ngIf="filtrar" (click)="cancelarFiltro()" type="submit" class="btn btn-primary ml-3">Borrar</button>
+                    </div>
+                </div>
+                <div *ngIf="doubleF && usuarios?.length > 0 == false" class="alert alert-info animated fadeIn fast" role="alert">
+                    Se necesita la palabra completa para encontrar el usuario con nombre y apellido
+                </div>
+            </form>
+
+
+            <div class="card-columns2 mt-5 animate fadeIn fast" *ngIf="usuarios?.length > 0">
+                <div *ngFor="let usuario of usuarios">
+
+                    <!-- aqui -->
+                    <!-- Previsualización perfil -->
+
+                    <div *ngIf="usuario.rol!='Admin'" class="card card-user justify-content-center d-flex">
+                        <div class="image">
+                            <img src="../../../assets/img/bg/background.jpg" alt="..." />
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                <img class="avatar border-white" [src]="'../../.'+usuario.urlImagen" alt="..." />
+                                <div>
+                                    <span class="badge badge-pill badge-info text-pildora">{{usuario.rol}}</span>
+                                </div>
+                                <h4 class="title"> {{usuario.nombre}} {{usuario.apellido}}</h4>
+                                <div>
+                                    <div class="text-pildora color">{{usuario.alias}}</div>
+                                    <div class="text-pildora"> {{usuario.email}} </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col">
+                                    <p class="card-text">{{usuario.descripcion}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center padding-btn">
+                            <button *ngIf="usuario.rol!='Estudiante'" (click)="verPerfil(usuario.d_id)" type="button" class="btn btn-primary">Ver</button>
+                            <button *ngIf="usuario.rol=='Estudiante'" (click)="verAvatar(usuario.d_id)" type="button" class="btn btn-primary">Ver</button>
+                        </div>
+
+                    </div>
+
+                    <!--/. Previsualización perfil -->
+                    <!-- aqui -->
+
+                </div>
+            </div>
+            <div *ngIf="usuarios?.length > 0 == false" class="alert alert-warning animated fadeIn fast" role="alert">
+                No hay estudiantes
+            </div>
+        </div>
+    </div>
+</div>

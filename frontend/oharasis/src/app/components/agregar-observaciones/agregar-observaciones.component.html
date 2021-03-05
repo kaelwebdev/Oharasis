@@ -1,0 +1,114 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Editar observación</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','estudiantes', observacion.d_idCurso]">Estudiantes</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','avatar',observacion.d_idReceptor, observacion.d_idCurso]">Estudiante</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Agregar observación
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content blank-content">
+        <div class="container-fluid pb-4">
+            <div class="cardd pt-4 pb-5">
+                <form [formGroup]="forma" novalidate="novalidate">
+                    <div class="header">
+                        <h4 class="title">Editar observación</h4>
+                        <p class="category"></p>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col justify-content-center">
+                            <div class="form-group label-center mr-4 ml-4">
+                                <textarea class="form-control" formControlName="txtMensaje" placeholder="Mensaje de observación..." type="text"></textarea>
+                                <!-- <input class="form-control" placeholder="Mensaje de observación..." formControlName="txtMensaje" type="text"> -->
+                                <div class="i-feedback" *ngIf="forma.controls['txtMensaje'].errors?.required">Este campo es requerido</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 mb-5">
+                        <div class="col d-flex justify-content-center">
+                            <button *ngIf="!editState" [disabled]="!forma.valid || yaExiste" type="submit" class="btn btn-primary mr-2" (click)="crearObservacion()">Crear</button>
+                            <button *ngIf="editState" [disabled]=" !forma.valid" type="submit" class="btn btn-primary mr-2" (click)="updateObservacion(observacion)">Guardar cambios</button>
+                            <button *ngIf="editState" type="submit" class="btn btn-warning" (click)="cancelarEdicion()">Cancelar edición</button>
+                        </div>
+                    </div>
+                    <div *ngIf="editState" class="alert alert-info animated fadeIn fast mr-4 ml-4" role="alert">
+                        Usted se encuentra en el modo edición
+                    </div>
+                    <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast mr-4 ml-4" role="alert">
+                        Observación creada satisfactoriamente
+                    </div>
+                    <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast mr-4 ml-4" role="alert">
+                        La observación no pudo ser creada
+                    </div>
+                    <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast mr-4 ml-4" role="alert">
+                        Observación actualizada satisfactoriamente
+                    </div>
+                    <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast mr-4 ml-4" role="alert">
+                        La observación no pudo ser actualizada
+                    </div>
+                    <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast mr-4 ml-4" role="alert">
+                        Observación eliminada satisfactoriamente
+                    </div>
+                    <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast mr-4 ml-4" role="alert">
+                        La observación no pudo ser eliminada
+                    </div>
+                    <div *ngIf="!forma.valid" class="alert alert-warning animated fadeIn fast mr-4 ml-4" role="alert">
+                        Campos de formulario sin definir, o datos invalidos
+                    </div>
+                </form>
+
+                <!-- table-primary, table-dark, table-info-->
+                <div class="table-responsive pt-3">
+                    <table class="table table-light border table-center rounded animated fadeIn fast" *ngIf="observaciones?.length > 0;else noItems">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Mensaje</th>
+                                <th scope="col">Eliminar</th>
+                                <th scope="col">Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let observacion of observaciones; let i = index">
+                                <th scope="row">{{i+1}}</th>
+                                <td>{{observacion.mensaje}} </td>
+                                <td><button [disabled]="editState" (click)="deleteObservacion($event, observacion)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                                <td><button (click)="editObservacion($event, observacion)" type="submit" class="btn btn-warning"> <i class="fas fa-edit"></i>Editar </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <ng-template class="i-feedback" #noItems>
+                    <div class="alert alert-warning animated fadeIn fast mr-4 ml-4" role="alert">
+                        No hay observaciones
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

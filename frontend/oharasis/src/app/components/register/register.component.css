@@ -1,0 +1,976 @@
+/* <!-- big-container --> */
+
+.contenedor-padre-registro {
+    width: 100%;
+    height: 700px;
+    position: absolute;
+    background: transparent;
+}
+
+
+/* <!--/. big-container --> */
+
+
+/* <!-- backgroung-img --> */
+
+#bacground-img {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: -2;
+}
+
+.back-img {
+    min-width: 100%;
+    min-width: 1024px;
+    width: 100%;
+    height: auto;
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
+}
+
+@media screen and (max-width: 1024px) {
+    .back-img {
+        left: 50%;
+        margin-left: auto;
+        /* -512px */
+    }
+}
+
+
+/* <!--/. backgroung-img --> */
+
+
+/* <!-- container svg --> */
+
+.container-svg-registro {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+}
+
+
+/* <!--./. container svg --> */
+
+
+/* <!-- particle js && clip-path --> */
+
+#particle-js-register-form {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    vertical-align: bottom;
+}
+
+.clip-registro {
+    clip-path: polygon(54% 5%, 54% 10%, 53.5% 13%, 53% 17%, 51.4% 22%, 49% 27%, 47% 30%, 44% 33.8%, 42.5% 35%, 38.9% 39%, 38.5% 41%, 38.4% 42%, 38.2% 45%, 41.2% 59%, 41.7% 63%, 41.6% 66.5%, 40.7% 70%, 38.3% 74%, 37.2% 75%, 33.8% 78%, 30.3% 83%, 29% 86%, 28% 92%, 27.8% 96%, 27.1% 99%, 26.5% 100%, 0 100%, 0 43%, 0 0, 18% 0, 33% 0, 41% 0, 53.5% 0);
+}
+
+
+/* <!-- particle js && clip-path --> */
+
+
+/* <!-- carga svg --> */
+
+#morph-registro {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+}
+
+
+/* <!--/. carga svg --> */
+
+
+/* <!-- container form registro --> */
+
+.container-form-registro {
+    width: 100%;
+    height: 700px;
+}
+
+
+/* <!--/. container form registro --> */
+
+
+/* <!-- container icon registro --> */
+
+.img-logo-registro {
+    position: absolute;
+    width: 130px;
+    height: 36px;
+    left: 60px;
+    top: 60px;
+}
+
+.img-logo-registro a {
+    cursor: pointer;
+}
+
+
+/* <!--/. container icon registro --> */
+
+
+/* <!-- form registro centrado --> */
+
+.center-element-form-registro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* <!--/. form registro centrado --> */
+
+
+/* <!-- form registro --> */
+
+.formulario-registro {
+    width: 780px;
+    background: #36393f;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);
+    box-sizing: border-box;
+    font-size: 18px;
+    padding: 40px;
+    -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .2);
+    -webkit-box-sizing: border-box;
+}
+
+
+/* <!--/. form registro --> */
+
+
+/* <!-- container elements registro --> */
+
+.containerWrapper-elements-registro {
+    text-align: center;
+    width: 100%;
+}
+
+
+/* <!--/. container elements registro --> */
+
+
+/* <!-- title & subtitle registro --> */
+
+.title-registro {
+    font-size: 26px;
+    line-height: 32px;
+}
+
+.registro-title-font-w {
+    font-weight: 300;
+}
+
+.registro-title-font-c {
+    color: #fff;
+}
+
+.font-botton {
+    margin-bottom: 8px;
+}
+
+.subtitle-registro {
+    color: #72767d;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.registro-subtitle-font-w-n {
+    font-weight: 400;
+}
+
+
+/* <!--/. title & subtitle registro --> */
+
+
+/* <!-- container inputs form registro --> */
+
+.container-block-registro {
+    text-align: left;
+    width: 100%;
+}
+
+.container-margint-registro {
+    margin-top: 20px;
+}
+
+
+/* <!--/. container inputs form registro --> */
+
+
+/* <!-- primer row --> */
+
+.row-primera-linea {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+
+
+/* <!--/. primer row --> */
+
+
+/* <!-- col-1 --> */
+
+.col-nombre {
+    padding: 0 20px;
+}
+
+.container-input-registro-nombre {
+    margin-bottom: 20px;
+}
+
+.text-registro-nombre {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-nombre-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* input nombre ↓ */
+
+.input-color-registro-nombre {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.input-def-registro-nombre {
+    height: 40px;
+    padding: 10px;
+}
+
+.input-decorator-registro-nombre {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.input-font-s-registro-nombre {
+    font-size: 16px;
+}
+
+
+/* <!--/. col-1 --> */
+
+
+/* <!-- col-2 --> */
+
+.col-apellido {
+    padding: 0 20px;
+}
+
+.container-input-registro-apellido {
+    margin-bottom: 20px;
+}
+
+.text-registro-apellido {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-apellido-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* input apellido ↓ */
+
+.input-color-registro-apellido {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.input-def-registro-apellido {
+    height: 40px;
+    padding: 10px;
+}
+
+.input-decorator-registro-apellido {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.input-font-s-registro-apellido {
+    font-size: 16px;
+}
+
+
+/* <!--/. col-2 --> */
+
+
+/* <!-- segundo row --> */
+
+.row-segunda-linea {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+
+
+/* <!-- col-3 --> */
+
+.col-username {
+    padding: 0 20px;
+}
+
+.container-input-registro-username {
+    margin-bottom: 20px;
+}
+
+.text-registro-username {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-username-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* input username ↓ */
+
+.input-color-registro-username {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.input-def-registro-username {
+    height: 40px;
+    padding: 10px;
+}
+
+.input-decorator-registro-username {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.input-font-s-registro-username {
+    font-size: 16px;
+}
+
+
+/* <!--/. col-3 --> */
+
+
+/* <!-- col-4 --> */
+
+.col-email {
+    padding: 0 20px;
+}
+
+.container-input-registro-email {
+    margin-bottom: 20px;
+}
+
+.text-registro-email {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-email-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* input email ↓ */
+
+.input-color-registro-email {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.input-def-registro-email {
+    height: 40px;
+    padding: 10px;
+}
+
+.input-decorator-registro-email {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.input-font-s-registro-email {
+    font-size: 16px;
+}
+
+
+/* <!--/. col-4 --> */
+
+
+/* <!--/. segundo row --> */
+
+
+/* <!-- tercer row --> */
+
+.row-tercer-linea {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+
+
+/* <!-- col-5 --> */
+
+.col-password {
+    padding: 0 20px;
+}
+
+.container-input-registro-password {
+    margin-bottom: 20px;
+}
+
+.text-registro-password {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-password-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* input password ↓ */
+
+.input-color-registro-password {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.input-def-registro-password {
+    height: 40px;
+    padding: 10px;
+}
+
+.input-decorator-registro-password {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.input-font-s-registro-password {
+    font-size: 16px;
+}
+
+
+/* <!--/. col-5 --> */
+
+
+/* <!-- col-6 --> */
+
+.col-genero {
+    padding: 0 20px;
+}
+
+.container-input-registro-genero {
+    margin-bottom: 20px;
+}
+
+.text-registro-genero {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-genero-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* dropdown genero ↓ */
+
+.dropdown-color-registro-genero {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.dropdown-def-registro-genero {
+    height: 40px;
+    padding: 10px;
+}
+
+.dropdown-decorator-registro-genero {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.dropdown-font-s-registro-genero {
+    font-size: 16px;
+}
+
+select.form-control.select-center.dropdown-color-registro-genero.dropdown-def-registro-genero.dropdown-decorator-registro-genero.dropdown-font-s-registro-genero {
+    height: 40px;
+}
+
+option.option-dropdown {
+    background-color: #36393f;
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+option.option-dropdown:hover {
+    background: red;
+}
+
+
+/* <!--/. col-6 --> */
+
+
+/* <!--/. tercer row --> */
+
+
+/* <!-- tercer row --> */
+
+.row-cuarta-linea {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+}
+
+
+/* <!-- col-7 --> */
+
+.col-tipo {
+    padding: 0 20px;
+}
+
+.container-input-registro-tipo {
+    margin-bottom: 20px;
+}
+
+.text-registro-tipo {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-tipo-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* dropdown tipo ↓ */
+
+.dropdown-color-registro-tipo {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.dropdown-def-registro-tipo {
+    height: 40px;
+    padding: 10px;
+}
+
+.dropdown-decorator-registro-tipo {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.dropdown-font-s-registro-tipo {
+    font-size: 16px;
+}
+
+select.form-control.select-center.dropdown-color-registro-tipo.dropdown-def-registro-tipo.dropdown-decorator-registro-tipo.dropdown-font-s-registro-tipo {
+    height: 40px;
+}
+
+option.option-dropdown-tipo {
+    background-color: #36393f;
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+
+/* <!--/. col-7 --> */
+
+
+/* <!-- col-8 --> */
+
+.col-tipo {
+    padding: 0 20px;
+}
+
+.container-input-registro-tipo {
+    margin-bottom: 20px;
+}
+
+.text-registro-tipo {
+    color: #b9bbbe;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    cursor: default;
+    flex: 1;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.campo-input-tipo-registro {
+    flex-direction: column;
+    display: flex;
+}
+
+
+/* input tipo ↓ */
+
+.input-color-registro-tipo {
+    background-color: rgba(0, 0, 0, .1);
+    border-color: rgba(0, 0, 0, .3);
+    color: #f6f6f7;
+}
+
+.input-def-registro-tipo {
+    height: 40px;
+    padding: 10px;
+}
+
+.input-decorator-registro-tipo {
+    -webkit-box-sizing: border-box;
+    -webkit-transition: background-color .15s ease, border .15s ease;
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    box-sizing: border-box;
+    transition: background-color .15s ease, border .15s ease;
+    width: 100%;
+}
+
+.input-font-s-registro-tipo {
+    font-size: 16px;
+}
+
+
+/* <!--/. col-8 --> */
+
+
+/* <!--/. tercer row --> */
+
+
+/* <!-- boton petición registro --> */
+
+.marginButton-container {
+    margin-top: 15px;
+}
+
+.button-lookFilled-registro.button-color-registro {
+    background-color: #7289da;
+    color: #fff;
+}
+
+.button-f-registro {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.button-full-registro {
+    width: 100%;
+}
+
+.button-text-registro {
+    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* <!--/. boton petición registro --> */
+
+.container-cuenta {
+    margin-top: 4px;
+}
+
+.text-tienes-cuenta {
+    font-size: 14px;
+    line-height: 16px;
+    color: #72767d;
+}
+
+.color-cuenta-ya {
+    color: #007bff;
+}
+
+.cuenta-ya-t {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-left: 4px;
+    padding: 0;
+    vertical-align: bottom;
+}
+
+.cuenta-ya-button {
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+    -webkit-box-sizing: border-box;
+    -webkit-user-select: none;
+    align-items: center;
+    background: none;
+    border: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    font-size: 14px;
+    font-weight: 500;
+    justify-content: center;
+    line-height: 16px;
+    padding: 4px 2px;
+    position: relative;
+    user-select: none;
+}
+
+.content-text-cuenta-ya {
+    margin: 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.content-text-cuenta-ya:hover {
+    cursor: pointer;
+    opacity: 1;
+    transition: .5s;
+}
+
+.container-text-codigo {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.text-codigo {
+    font-size: 14px;
+    line-height: 16px;
+    color: #72767d;
+}
+
+
+/* Animaciones */
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fast {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+@media (max-width: 1200px) {
+    .img-logo-registro {
+        position: absolute;
+        top: 8%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .center-element-form-registro {
+        top: 66%;
+    }
+}
+
+@media (max-width: 900px) {
+    .formulario-registro {
+        width: 750px;
+    }
+    .container-form-registro {
+        height: 850px;
+    }
+}
+
+@media (max-width: 785px) {
+    .formulario-registro {
+        width: 700px;
+    }
+}
+
+@media (max-width: 700px) {
+    .formulario-registro {
+        width: 650px;
+    }
+}
+
+@media (max-width: 650px) {
+    .formulario-registro {
+        width: 550px;
+    }
+}
+
+@media (max-width: 570px) {
+    .formulario-registro {
+        width: 500px;
+    }
+}
+
+@media (max-width: 550px) {
+    .formulario-registro {
+        width: 500px;
+    }
+    .container-form-registro {
+        height: 1100px;
+    }
+    .center-element-form-registro {
+        top: 85%;
+    }
+    .row-primera-linea,
+    .row-segunda-linea,
+    .row-tercer-linea,
+    .row-cuarta-linea {
+        display: block;
+    }
+}
+
+@media (max-width: 485px) {
+    .formulario-registro {
+        width: 450px;
+    }
+    #bacground-img {
+        background: #72767d;
+    }
+    .back-img {
+        display: none;
+    }
+    #particle-js-register-form {
+        display: none;
+    }
+    .morph-registro {
+        display: none;
+    }
+}
+
+@media (max-width: 400px) {
+    .formulario-registro {
+        width: 370px;
+    }
+    .container-form-registro {
+        height: 1120px;
+    }
+}
+
+.select-hover {
+    cursor: pointer;
+}

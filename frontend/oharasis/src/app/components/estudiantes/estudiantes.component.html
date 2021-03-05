@@ -1,0 +1,120 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+
+                    <h1 class="m-0">
+                        Lista de estudiantes</h1>
+                    <h4 class="m-0 text-dark" *ngIf="curso!=undefined && idCurso!='' ">
+                        {{curso.nombre}}
+                        <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al año">A-{{curso.year}}</span>
+                        <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al periodo">P-{{curso.idPeriodo}}</span>
+                        <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al grupo">G-{{curso.idGrupo}}</span>
+                    </h4>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Estudiantes
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <div class="row pt-3 flex-row-reverse">
+                <button (click)="verConfiguracion()" class="btn btn-primary ml-3 mr-2"> <i class="fas fa-cogs pr-1"></i> SO</button>
+                <button (click)="verEvaluaciones()" *ngIf="user.rol=='Profesor'" class="btn btn-primary ml-3"> <i class="fas fa-cogs pr-1"> Evaluaciones</i></button>
+                <button (click)="verReporte()" class="btn btn-primary ml-3"> <i class="fas fa-eye pr-1"> Ver reporte del curso</i></button>
+            </div>
+            <!-- <div class="table-responsive mb-3 mt-3 pt-4">
+                <table class="table table-center rounded table-light  animate fadeIn fast" *ngIf="estudiantes?.length > 0;else noItems">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre de usuario</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor=" let estudiante of estudiantes; let i = index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{estudiante.alias}}</td>
+                            <td>{{estudiante.nombre}}</td>
+                            <td> {{estudiante.apellido}}</td>
+                            <td> {{estudiante.email}}</td>
+                            <td>
+                                <button (click)="verEstudiante(estudiante.d_id)" type="submit" class="btn btn-primary"> <i class="fas fa-eye pr-1"> Ver</i> </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template class="i-feedback" #noItems>
+                    <div class="alert alert-warning animated fadeIn fast" role="alert">
+                        No hay estudiantes
+                    </div>
+                </ng-template>
+            </div> -->
+
+            <!-- new -->
+            <div class="row">
+                <div class="col-md-12 table-responsive mt-3 mb-3 pt-4">
+                    <div class="cardd">
+                        <div class="header">
+                            <h4 class="title">Lista de estudiantes</h4>
+                            <p class="category">Estudiantes del curso</p>
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <table class="table table-light table-center rounded animated fadeIn fast" *ngIf="estudiantes?.length > 0;else noItems">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre de usuario</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Correo</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor=" let estudiante of estudiantes; let i = index">
+                                        <th scope="row">{{i+1}}</th>
+                                        <td>{{estudiante.alias}}</td>
+                                        <td>{{estudiante.nombre}}</td>
+                                        <td> {{estudiante.apellido}}</td>
+                                        <td> {{estudiante.email}}</td>
+                                        <td>
+                                            <button (click)="verEstudiante(estudiante.d_id)" type="submit" class="btn btn-primary"> <i class="fas fa-eye pr-1"> Ver</i> </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ng-template class="i-feedback" #noItems>
+                                <div class="alert alert-warning animated fadeIn fast" role="alert">
+                                    No hay estudiantes
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- new -->
+
+        </div>
+    </div>
+</div>

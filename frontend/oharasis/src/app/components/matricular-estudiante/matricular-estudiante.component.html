@@ -1,0 +1,130 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Agregar Matricula</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            agregar matricula
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <div class="row mt-3 flex-row-reverse">
+                <button (click)="quitarMatriculas()" class="btn btn-danger ml-3 mb-1"
+                 [disabled]="forma.controls['lEstudiantes'].value==''">
+            Eliminar todas las matriculas de {{regCalificacion.d_idEstudiante | realName:estudiantes:"d_id":"nombre"}}</button>
+                <button (click)="matricularTodo()" class="btn btn-primary ml-3 mb-1"
+                [disabled]="forma.controls['lEstudiantes'].value==''">
+            Matricular todo a {{regCalificacion.d_idEstudiante | realName:estudiantes:"d_id":"nombre"}}</button>
+            </div>
+            <form [formGroup]="forma" novalidate="novalidate">
+                <div *ngIf="estudiantes?.length > 0" class="row w-100 justify-content-between">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Estudiantes</label>
+                            <select class="form-control select-center" id="" formControlName="lEstudiantes"> 
+                        <option value="">Seleccione una estudiante</option>
+                        <option *ngFor="let estudiante of estudiantes" [value]="estudiante.d_id">{{estudiante.alias}}</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="cursos?.length > 0" class="row w-100 justify-content-between">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Curso</label>
+                            <select class="form-control select-center" id="" formControlName="lCursos"> 
+                      <option value="">Seleccione una curso</option>
+                      <option *ngFor="let curso of cursos" [value]="curso.d_id">{{curso.nombre}}</option>
+                  </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="camposVacios && editState">
+                    se deben llenar todos los campos
+                </div>
+                <div class="row mt-5 mb-5">
+                    <div class="col d-flex justify-content-center">
+                        <button *ngIf="!editState" [disabled]="!forma.valid || idUnico" type="submit" class="btn btn-primary mr-2" (click)="crearRegCalificacion()">Crear</button>
+                        <button *ngIf="editState" [disabled]=" !forma.valid  || idUnico" type="submit" class="btn btn-primary mr-2" (click)="updateRegCalificacion(regCalificacion)">Guardar cambios</button>
+                        <button *ngIf="editState" type="submit" class="btn btn-warning" (click)="cancelarEdicion()">Cancelar Edicion</button>
+                    </div>
+                </div>
+                <div *ngIf="editState" class="alert alert-info animated fadeIn fast" role="alert">
+                    Usted se encuentra en el modo edicion
+                </div>
+                <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Categoria creada satisfactoriamente
+                </div>
+                <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    La categoria no pudo ser creado
+                </div>
+                <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Categoria actualizada satisfactoriamente
+                </div>
+                <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                    La categoria no pudo ser actualizado
+                </div>
+                <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Categoria eliminada satisfactoriamente
+                </div>
+                <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                    La Categoria no pudo ser eliminada
+                </div>
+                <div *ngIf="registrado[0]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Registro SO editado satisfactoriamente
+                </div>
+                <div *ngIf="registrado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Registro Calificacion editado satisfactoriamente
+                </div>
+                <div *ngIf="idUnico" class="alert alert-danger animated fadeIn fast" role="alert">
+                    El estudiante ya esta matriculado a este curso
+                </div>
+                <div *ngIf="!forma.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                    campos de formulario sin definir, o datos invalidos
+                </div>
+            </form>
+
+            <!-- table-primary, table-dark, table-info-->
+            <table class="table table-dark table-center rounded" *ngIf="regCalificaciones?.length > 0;else noItems">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Curso</th>
+                        <th scope="col">Estudiante</th>
+                        <th scope="col"></th>
+                        <!-- <th scope="col">Editar</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor=" let regCalificacion of regCalificaciones">
+                        <th scope="row">{{regCalificacion.d_id}}</th>
+                        <td>{{regCalificacion.d_idCurso | realName:cursos:"d_id":"nombre"}} </td>
+                        <td>{{regCalificacion.d_idEstudiante | realName:estudiantes:"d_id":"nombre"}}</td>
+                        <td><button [disabled]="editState" (click)="deleteRegCalificacion($event, regCalificacion)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                        <!-- <td><button [disabled]= "editState" (click)="editRegCalificacion($event, regCalificacion)"type="submit" class="btn btn-warning" > <i class="fas fa-edit"></i>Editar </button></td>  -->
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template class="i-feedback" #noItems>
+                <div class="alert alert-warning animated fadeIn fast" role="alert">
+                    No hay registros de matricula
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

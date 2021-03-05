@@ -1,0 +1,257 @@
+<!-- <div id="particle-js-register-form"></div> -->
+
+<!-- big-container -->
+<div class="contenedor-padre-registro">
+
+    <!-- backgroung-img -->
+    <div id="bacground-img">
+        <img class="back-img" src="../../../../assets/img/bg/bg-img.jpg" alt="">
+    </div>
+    <!--/. backgroung-img -->
+
+    <!-- container svg -->
+    <div class="container-svg-registro">
+
+        <!-- particle js && clip-path -->
+        <div id="particle-js-register-form" class="clip-registro"></div>
+        <!-- particle js && clip-path -->
+
+        <!-- carga svg -->
+        <svg id="morph-registro" height="100%" width="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+          <path class="morph-registro" d="M1026,0c0,0,85,246-240,396c-181.3,83.7,183,297-91,425c-216,100.9-119,190-182,259c-0.3,0.3-513,0-513,0V0 H1026z" fill="#3a3b3f">
+          </path>
+      </svg>
+        <!--/. carga svg -->
+
+    </div>
+    <!--./ container svg -->
+
+    <!-- container form registro -->
+    <div class="container-form-registro">
+
+        <!-- container icon registro -->
+        <div class="img-logo-registro animate fadeIn fast">
+
+            <a [routerLink]="['/home']">
+                <img src=".../../../assets/img/icons/icon-login/oharasisLogo.png" alt="">
+            </a>
+
+        </div>
+        <!--/. container icon registro -->
+
+        <!-- form registro centrado -->
+        <div class="center-element-form-registro">
+
+            <!-- form registro -->
+            <form action="" class="formulario-registro animate fadeIn fast" id="">
+
+                <!-- container elements registro -->
+                <div class="containerWrapper-elements-registro">
+
+                    <!-- title & subtitle registro -->
+                    <div class="title-registro registro-title-font-w registro-title-font-c font-botton">
+                        Crear una cuenta
+                    </div>
+
+                    <div class="subtitle-registro registro-subtitle-font-w-n">
+                        Petición de registro de usuario
+                    </div>
+                    <!--/. title & subtitle registro-->
+
+                    <!-- container inputs form registro -->
+                    <div class="container-block-registro container-margint-registro">
+                        <form (ngSubmit)="contactForm(form.value)" #form="ngForm">
+                            <!-- primer row -->
+                            <div class="row-primera-linea">
+
+                                <!-- col-1 -->
+                                <div class="col col-nombre">
+                                    <div class="container-input-registro-nombre">
+                                        <h5 class="text-registro-nombre font-botton">
+                                            nombre
+                                        </h5>
+                                        <div class="campo-input-nombre-registro">
+                                            <input ngModel name="nombre" type="text" autocomplete="off" placeholder required="" autofocus="true" spellcheck="false" class="input-color-registro-nombre input-def-registro-nombre input-decorator-registro-nombre input-font-s-registro-nombre">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-1 -->
+
+                                <!-- col-2 -->
+                                <div class="col col-apellido">
+                                    <div class="container-input-registro-apellido">
+                                        <h5 class="text-registro-apellido font-botton">
+                                            apellido
+                                        </h5>
+                                        <div class="campo-input-apellido-registro">
+                                            <input ngModel name="apellido" type="text" autocomplete="off" placeholder required="" autofocus="" spellcheck="false" class="input-color-registro-apellido input-def-registro-apellido input-decorator-registro-apellido input-font-s-registro-apellido">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-2 -->
+
+                            </div>
+                            <!--/. primer row -->
+
+                            <!-- segundo row -->
+                            <div class="row-segunda-linea">
+
+                                <!-- col-3 -->
+                                <div class="col col-username">
+                                    <div class="container-input-registro-username">
+                                        <h5 class="text-registro-username font-botton">
+                                            nombre de usuario
+                                        </h5>
+                                        <div class="campo-input-username-registro">
+                                            <input ngModel name="alias" type="text" autocomplete="off" placeholder required="" autofocus="" spellcheck="false" class="input-color-registro-username input-def-registro-username input-decorator-registro-username input-font-s-registro-username">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-3 -->
+
+                                <!-- col-4 -->
+                                <div class="col col-email">
+                                    <div class="container-input-registro-email">
+                                        <h5 class="text-registro-email font-botton">
+                                            correo electrónico
+                                        </h5>
+                                        <div class="campo-input-email-registro">
+                                            <input ngModel name="email" type="email" autocomplete="off" placeholder required="" autofocus="" spellcheck="false" class="input-color-registro-email input-def-registro-email input-decorator-registro-email input-font-s-registro-email">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-4 -->
+
+                            </div>
+                            <!--/. segundo row -->
+
+
+                            <!-- tercer row -->
+                            <div class="row-tercer-linea">
+
+                                <!-- col-5 -->
+                                <div class="col col-password">
+                                    <div class="container-input-registro-password">
+                                        <h5 class="text-registro-password font-botton">
+                                            password
+                                        </h5>
+                                        <div class="campo-input-password-registro">
+                                            <input ngModel name="password" type="password" autocomplete="off" placeholder required="" autofocus="" spellcheck="false" class="input-color-registro-password input-def-registro-password input-decorator-registro-password input-font-s-registro-password">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-5 -->
+
+                                <!-- col-6 -->
+                                <div class="col col-genero">
+                                    <div class="container-input-registro-genero">
+                                        <h5 class="text-registro-genero font-botton">
+                                            sexo
+                                        </h5>
+                                        <div class="campo-input-genero-registro">
+                                            <div class="dropdown">
+                                                <select ngModel name="genero" class="form-control select-center dropdown-color-registro-genero dropdown-def-registro-genero dropdown-decorator-registro-genero dropdown-font-s-registro-genero select-hover">
+                                                    <option class="option-dropdown" >Masculino</option>
+                                                    <option class="option-dropdown" >Femenino</option>
+                                                    <!-- <option class="option-dropdown" >Otro</option> -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-6 -->
+
+                            </div>
+                            <!--/. tercer row -->
+
+                            <!-- cuarto row -->
+                            <div class="row-cuarta-linea">
+
+                                <!-- col-7 -->
+                                <div class="col col-tipo">
+                                    <div class="container-input-registro-tipo">
+                                        <h5 class="text-registro-tipo font-botton">
+                                            tipo
+                                        </h5>
+                                        <div class="campo-input-tipo-registro">
+                                            <div class="dropdown">
+                                                <select ngModel name="tipo" class="form-control select-center dropdown-color-registro-tipo dropdown-def-registro-tipo dropdown-decorator-registro-tipo dropdown-font-s-registro-tipo select-hover">
+                                                    <option class="option-dropdown-tipo" >Profesor</option>
+                                                    <option class="option-dropdown-tipo" >Director</option>
+                                                    <option class="option-dropdown-tipo" >Admin</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-7 -->
+
+                                <!-- col-8 -->
+                                <div class="col col-tipo">
+                                    <div class="container-input-registro-tipo">
+                                        <h5 class="text-registro-tipo font-botton">
+                                            Código
+                                        </h5>
+                                        <div class="campo-input-tipo-registro">
+                                            <input ngModel name="codigo" type="password" autocomplete="off" placeholder required="" autofocus="" spellcheck="false" class="input-color-registro-tipo input-def-registro-tipo input-decorator-registro-tipo input-font-s-registro-tipo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--/. col-8 -->
+
+                                <!-- boton petición registro -->
+                                <div class="container marginButton-container">
+                                    <div class="row">
+                                        <div class="col"></div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-primary button-f-registro font-botton button-full-registro button-lookFilled-registro" id="btn-click">
+                                            <div class="button-text-registro">
+                                                Enviar petición
+                                            </div>
+                                        </button>
+                                        </div>
+                                        <div class="col"></div>
+                                    </div>
+                                </div>
+                                <!-- boton petición registro -->
+
+                                <div class="container-cuenta">
+                                    <span class="text-tienes-cuenta">
+                                        ¿Ya tienes una cuenta?
+                                    </span>
+                                    <button type="button" class="color-cuenta-ya cuenta-ya-t cuenta-ya-button">
+                                        <div [routerLink]="['/login']" class="content-text-cuenta-ya">
+                                            Inicia sesión
+                                        </div>
+                                    </button>
+                                    <!-- <button type="button" class="btn btn-primary" id="btn-click">Effect</button> -->
+                                </div>
+
+                                <div class="container-text-codigo">
+                                    <span class="text-codigo">
+                                    El código es dado por el director del programa. Se notificara a su correo electrónico la aprobación del registro.
+                                </span>
+                                </div>
+
+                            </div>
+                            <!--/. cuarto row -->
+                        </form>
+                    </div>
+                    <!--/. container inputs form registro -->
+
+                </div>
+                <!--/. container elements registro -->
+
+            </form>
+            <!--/. form registro -->
+
+        </div>
+        <!--/. form registro centrado -->
+
+    </div>
+    <!--/. container form registro -->
+
+
+
+</div>
+<!--/. big-container -->

@@ -1,0 +1,112 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Configurar curso</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','estudiantes', d_idCurso]">Estudiantes</a>
+                        </li>
+
+                        <li class="breadcrumb-item active">
+                            Configurar curso
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <form novalidate="novalidate">
+                <!-- <div class="row w-100 justify-content-center">
+                    <div class="table-responsive-sm">
+                        <table class="table" *ngIf="sos?.length > 0;else noItems">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Objetivos de aprendizaje (SO) ABET</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor=" let so of sos">
+                                    <th scope="row">{{so.id}}</th>
+                                    <td>{{so.nombre}}</td>
+                                    <td>
+                                        <select class="form-control select-center selectAbet" [id]="'estado'+so.id" value=2>
+                                    <option *ngFor="let estado of estados" 
+                                    [attr.selected]="0==estado.valor ? 'selected' : null"
+                                     [value]="estado.valor">{{estado.nombre}}</option>
+                                    </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row mt-5 mb-5">
+                    <div class="col d-flex justify-content-center">
+                        <button class="btn btn-primary mr-2" (click)="guardarCambios()">Guardar cambios</button>
+                    </div>
+                </div> -->
+
+                <!-- new -->
+                <div class="row">
+                    <div class="col-md-12 table-responsive mt-3 pb-3">
+                        <div class="cardd">
+                            <div class="header">
+                                <h4 class="title">Lista de Student Outcomes</h4>
+                                <p class="category">Selección de SO por curso <i class="fas fa-info-circle pl-1 text-secondary" data-toggle="tooltip" data-placement="right" title="Permite realizar la selección de los SO requeridos para el curso"></i></p>
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-light table-center rounded animated fadeIn fast" *ngIf="sos?.length > 0;else noItems">
+                                    <thead class="">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Objetivos de aprendizaje (SO) ABET</th>
+                                            <th scope="col">Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let so of sos">
+                                            <th scope="row">{{so.id}}</th>
+                                            <td>{{so.nombre}}</td>
+                                            <td>
+                                                <select class="form-control select-center selectAbet select-hover" [id]="'estado'+so.id" value=2>
+                                                    <option *ngFor="let estado of estados" 
+                                                            [attr.selected]="0==estado.valor ? 'selected' : null"
+                                                            [value]="estado.valor">{{estado.nombre}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <div class="row pt-5 pb-5">
+                                <div class="col d-flex justify-content-center">
+                                    <button class="btn btn-primary mr-2" (click)="guardarCambios()">Guardar cambios</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

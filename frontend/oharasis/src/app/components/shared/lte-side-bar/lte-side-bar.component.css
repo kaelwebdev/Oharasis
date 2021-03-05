@@ -1,0 +1,25 @@
+.user-panel-line {
+    border-top: 1px solid #4f5962;
+}
+
+.user-panel .info {
+    overflow: hidden;
+    white-space: normal !important;
+}
+
+.user-panel-line-generic {
+    border-bottom: 1px solid #4f5962;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.nav-sidebar .nav-item>.nav-link {
+    margin-bottom: 0;
+}
+
+
+/* 
+.nav-link {
+    display: block;
+    padding: .5rem 9px !important;
+} */

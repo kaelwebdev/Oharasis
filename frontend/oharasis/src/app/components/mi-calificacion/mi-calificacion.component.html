@@ -1,0 +1,281 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6" *ngIf="estudiante!=undefined && curso!=undefined">
+                    <div class="row">
+                        <h1>Calificar Estudiante</h1>
+                    </div>
+                    <div class="row mt-3">
+                        <h4 class="m-0">
+                            {{curso.nombre}}
+                            <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al año">A-{{curso.year}}</span>
+                            <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al periodo">P-{{curso.idPeriodo}}</span>
+                            <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al grupo">G-{{curso.idGrupo}}</span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Calificar Estudiante
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <div class="row mt-5 pb-1 flex-row-reverse noIMP">
+                <button (click)="imprimir()" class="btn btn-primary mr-3"><i class="fas fa-file-pdf">
+                        Imprimir</i></button>
+            </div>
+            <div class="row d-flex justify-content-center mb-5">
+                <h4>{{estudiante.nombre}} {{estudiante.apellido}}</h4>
+            </div>
+            <div class="row justify-content-center">
+                <h4> <label>Corte</label></h4>
+            </div>
+            <div class="row justify-content-center mb-3">
+                <select [ngModel]="idCorte" (ngModelChange)="onChangeCorte($event)" name="elCorte" class="form-control select-corte select-hover" id="">
+                            <option value="1">Corte 1</option>
+                            <option value="2">Corte 2</option>
+                            <option value="3">Corte 3</option>
+                        </select>
+            </div>
+
+            <form>
+                <div class="cardd p-1 mb-5">
+                    <div class="p-3">
+                        <!-- acordion adelanto -->
+                        <h3 class="pb-3 pt-1 text-center font-weight-bold">Objetivos de Aprendizaje (SO) ABET</h3>
+                        <div class="accordion" id="listaSO" *ngIf="regsCSOPI?.length > 0;else noItems">
+                            <div class="card" *ngFor=" let regCSOPI of regsCSOPI; let i = index">
+                                <div class="card-header collapsed" [id]="'head'+regCSOPI.regCSO.d_id" data-toggle="collapse" [attr.data-target]="'#so'+regCSOPI.regCSO.d_id" [attr.aria-expanded]="false" [attr.aria-controls]="'so'+regCSOPI.regCSO.d_id">
+                                    <h2 class="mb-0">
+                                        <a class="acordion-btn d-flex justify-content-between">
+                                            <div>
+                                                {{regCSOPI.regCSO.idSo}}. {{regCSOPI.regCSO.idSo | realName:sos:"id":"nombre"}}
+                                            </div>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+
+                                <div [id]="'so'+regCSOPI.regCSO.d_id" class="collapse" [attr.aria-labelledby]="'head'+regCSOPI.regCSO.d_id" data-parent="#listaSO">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column">
+                                            <div class=" rounded border border-info p-3 mb-2" *ngFor=" let regCPI of regCSOPI.regCPI; let i= index">
+                                                <div class="d-flex flex-row pb-2 content-pi flex-wrap">
+                                                    <div class="d-flex justify-content-start content-pi-txt">
+                                                        <div class="txtPi"><b>PI {{i+1}}. </b></div>
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-end content-pi-value">
+                                                        {{regCPI.valor | realName:notas:"valor":"nombre"}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="table-responsive-sm" *ngIf="detalleGeneral?.length >0">
+                                        <div class="w-100 subttable label-center sTB"> ABET - Proporción de calificación
+                                        </div>
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th class="thBc" scope="col"> Calificación</th>
+                                                    <th class="thBc" scope="col"> Cantidad</th>
+                                                    <th class="thBc" scope="col"> Porcentaje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">{{notas[4].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].sobresaliente.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].sobresaliente.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{{notas[3].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].satisfactorio.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].satisfactorio.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{{notas[2].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].enDesarrollo.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].enDesarrollo.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{{notas[1].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].insuficiente.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].insuficiente.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="table-responsive-sm" *ngIf="detalleGeneral?.length >0">
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th class="thBc" scope="col"> ABET - Porcentaje de aprobación</th>
+                                                    <th class="thBc" scope="col"> ABET - Promedio </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> {{(detalleGeneral[0].sobresaliente.porcentaje + detalleGeneral[0].satisfactorio.porcentaje) | number: '1.0-2'}}%
+                                                    </td>
+                                                    <td> {{calificacionAbet | number: '1.0-2'}}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- <span class="scroll-btn" *ngIf="regsEC?.length > 0;else noItems">
+                    <a href="#">
+                        <span class="mouse">
+                            <span>
+                            </span>
+                        </span>
+                    </a>
+                    <p>scroll me</p>
+                </span> -->
+                <div class="cardd p-1 mb-5">
+                    <div class="p-3">
+                        <h3 class="pb-3 pt-1 text-center font-weight-bold">Evaluaciones - Resultados</h3>
+                        <div class="table-responsive-sm mb-5 card">
+                            <table class="table" *ngIf="regsEC?.length > 0;else noItems">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Evaluación</th>
+                                        <th scope="col">Competencia (Criterio de calificacion)</th>
+                                        <th scope="col">Categoría</th>
+                                        <th scope="col">Calificación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor=" let regEC of regsEC">
+                                        <th scope="row">{{regEC.d_idEvaluacion | realName:evaluaciones:"d_id":"nombre"}}
+                                        </th>
+                                        <td>{{regEC.d_idCriterio | realName:criterios:"d_id":"competencia"}}</td>
+                                        <td>{{regEC.idCategoria | realName:categorias:"id":"nombre"}}</td>
+                                        <td>{{regEC.valor}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row mt-1 pb-4" *ngIf="regsEC?.length>0">
+                            <div class="col d-flex justify-content-center">
+                                <button (click)="prevCalificacionCriterios()" class="btn btn-primary">Ver
+                                    calificación</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+
+            <div *ngIf="calificacionE?.length>0 && calificacionC?.length > 0">
+                <div class="table-responsive-sm" *ngFor=" let cE of calificacionE">
+                    <div class="w-100 subttable label-center sTB">{{cE.id | realName:evaluaciones:"d_id":"nombre"}}- Porcentaje de habilidad</div>
+                    <div class="w-100 subttable  "> Promedio: {{cE.promedio | number: '1.0-2'}}</div>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="thBc" scope="col">Habilidad</th>
+                                <th class="thBc" scope="col">Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let pH of cE.porcentajeH">
+                                <th scope="row">{{pH.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                <td>{{pH.valor | number: '1.0-2'}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-responsive-sm" *ngFor=" let cC of calificacionC">
+                    <div class="w-100 subttable label-center sTB">Porcentaje de habilidad para el corte #{{cC.idCorte}}
+                    </div>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th class="thBc" scope="col">Habilidad</th>
+                                <th class="thBc" scope="col">Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let pHC of cC.porcentajeHC">
+                                <th scope="row">{{pHC.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                <td>{{pHC.valor | number: '1.0-2'}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- <div class="row" *ngIf="observaciones?.length>0 == true || observaciones==undefined">
+                <div class="col card">
+                    <label>Observaciones</label>
+                    <div class="card" *ngFor="let observacion of observaciones; let i= index;">
+                        <div>
+                            <label class="pl-1 pr-1">{{i+1}}.</label>{{observacion.mensaje}}
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-md-12 table-responsive mt-3" *ngIf="observaciones?.length>0 == true || observaciones==undefined">
+                    <div class="cardd">
+                        <div class="header">
+                            <h4 class="title">Observaciones</h4>
+                            <!-- <p class="category">Here is a subtitle for this table</p> -->
+                        </div>
+                        <div class="content table-responsive table-full-width">
+                            <div class="card" *ngFor="let observacion of observaciones; let i= index;">
+                                <div>
+                                    <label class="pl-1 pr-1">{{i+1}}.</label>{{observacion.mensaje}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

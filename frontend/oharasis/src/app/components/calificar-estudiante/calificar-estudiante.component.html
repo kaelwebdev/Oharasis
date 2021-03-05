@@ -1,0 +1,334 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6" *ngIf="estudiante!=undefined && curso!=undefined">
+                    <div class="row m-0">
+                        <h1>Calificar estudiante</h1>
+                    </div>
+                    <div class="row m-0 pt-3">
+                        <h4 class="m-0">
+                            {{curso.nombre}}
+                            <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al año">A-{{curso.year}}</span>
+                            <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al periodo">P-{{curso.idPeriodo}}</span>
+                            <span class="badge badge-pill badge-info ml-1" data-toggle="tooltip" data-placement="bottom" title="Este campo corresponde al grupo">G-{{curso.idGrupo}}</span>
+                        </h4>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','estudiantes',idCurso]">
+                                Estudiantes
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','avatar',idEstudiante,idCurso]">Estudiante</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Calificar estudiante
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <div class="row mt-5 pb-1 flex-row-reverse noIMP">
+                <button (click)="imprimir()" class="btn btn-primary mr-3"><i class="fas fa-file-pdf">
+                        Imprimir</i>
+                </button>
+            </div>
+
+            <div class="row d-flex justify-content-center pb-5">
+                <h4>{{estudiante.nombre}} {{estudiante.apellido}}</h4>
+            </div>
+
+            <form>
+                <div class="cardd p-1 mb-5">
+                    <div class="p-3">
+                        <!-- acordion adelanto -->
+                        <h3 class="pb-3 pt-1 text-center font-weight-bold">Objetivos de aprendizaje (SO) ABET</h3>
+                        <div class="accordion" id="listaSO" *ngIf="regsCSOPI?.length > 0;else noItems">
+                            <div class="card" *ngFor=" let regCSOPI of regsCSOPI; let i = index">
+                                <div class="card-header collapsed" [id]="'head'+regCSOPI.regCSO.d_id" data-toggle="collapse" [attr.data-target]="'#so'+regCSOPI.regCSO.d_id" [attr.aria-expanded]="false" [attr.aria-controls]="'so'+regCSOPI.regCSO.d_id">
+                                    <h2 class="mb-0">
+                                        <a class="acordion-btn d-flex justify-content-between">
+                                            <div>
+                                                {{regCSOPI.regCSO.idSo}}. {{regCSOPI.regCSO.idSo | realName:sos:"id":"nombre"}}
+                                            </div>
+                                            <i class="fas fa-chevron-down"></i>
+                                        </a>
+                                    </h2>
+                                </div>
+
+                                <div [id]="'so'+regCSOPI.regCSO.d_id" class="collapse" [attr.aria-labelledby]="'head'+regCSOPI.regCSO.d_id" data-parent="#listaSO">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column">
+                                            <div class=" rounded border p-3 mb-2" *ngFor=" let regCPI of regCSOPI.regCPI; let i= index">
+                                                <div class="d-flex flex-row pb-2 content-pi flex-wrap">
+                                                    <div class="d-flex justify-content-start content-pi-txt">
+                                                        <div class="txtPi"><b>PI {{i+1}}.</b> {{regCPI.idPi | realName:pis:"id":"nombre"}}</div>
+                                                    </div>
+
+                                                    <div class="d-flex justify-content-end content-pi-value">
+                                                        <select class="form-control select-center selectAbet select-hover" [id]="'rcpi'+regCPI.d_id">
+                                                            <option *ngFor="let nota of notas"
+                                                                [attr.selected]="regCPI.valor==nota.valor ? 'selected' : null"
+                                                                [value]="nota.valor">{{nota.nombre}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="table-responsive-sm" *ngIf="detalleGeneral?.length >0">
+                                        <div class="w-100 subttable label-center sTB"> ABET - Proporción de calificación
+                                        </div>
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th class="thBc" scope="col"> Calificación</th>
+                                                    <th class="thBc" scope="col"> Cantidad</th>
+                                                    <th class="thBc" scope="col"> Porcentaje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">{{notas[4].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].sobresaliente.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].sobresaliente.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{{notas[3].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].satisfactorio.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].satisfactorio.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{{notas[2].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].enDesarrollo.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].enDesarrollo.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">{{notas[1].nombre}}</th>
+                                                    <td>{{detalleGeneral[0].insuficiente.cantidad }}</td>
+                                                    <td>{{detalleGeneral[0].insuficiente.porcentaje | number: '1.0-2'}}%
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="table-responsive-sm" *ngIf="detalleGeneral?.length >0">
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th class="thBc" scope="col"> ABET - Porcentaje de aprobación</th>
+                                                    <th class="thBc" scope="col"> ABET - Promedio </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td> {{(detalleGeneral[0].sobresaliente.porcentaje + detalleGeneral[0].satisfactorio.porcentaje) | number: '1.0-2'}}%
+                                                    </td>
+                                                    <td> {{calificacionAbet | number: '1.0-2'}}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row mt-2 pb-2">
+                            <div class="col d-flex justify-content-center">
+                                <!-- <button (click)="prevCalificacionAbet()" class="btn btn-primary">Estimar calificacion</button> -->
+                                <button (click)="calificarAbet()" class="btn btn-primary ">&nbsp;&nbsp;&nbsp;Guardar
+                                    Calificación&nbsp;&nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- <span class="scroll-btn" *ngIf="regsEC?.length > 0;else noItems">
+                    <a href="#">
+                        <span class="mouse">
+                        <span>
+                        </span>
+                        </span>
+                    </a>
+                    <p>scroll me</p>
+                </span> -->
+
+
+            </form>
+
+            <div class="cardd p-1 mb-5">
+                <div class="p-3">
+                    <div class="col pb-4">
+                        <div class="row justify-content-center">
+                            <h4> <label>Corte</label></h4>
+                        </div>
+                        <div class="row justify-content-center">
+                            <select [ngModel]="idCorte" (ngModelChange)="onChangeCorte($event)" name="elCorte" class="form-control select-corte" id="">
+                                <option value="1">Corte 1</option>
+                                <option value="2">Corte 2</option>
+                                <option value="3">Corte 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div *ngIf="regsEC?.length > 0 == false
+                                             && criterios?.length > 0 == false" class="d-flex justify-content-center">No hay evaluaciones
+                        </div>
+                        <div class="table-responsive-sm mb-2">
+                            <table class="table" *ngIf="regsEC?.length > 0 && criterios?.length > 0;else noItems">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Evaluación</th>
+                                        <th scope="col">Competencia (Criterio de Calificación)</th>
+                                        <th scope="col">Categoría</th>
+                                        <th scope="col">Calificación <i class="fas fa-info-circle pl-1 text-secondary" data-toggle="tooltip" data-placement="top" title="El valor a ingresar debe estar entre 0 a 5. De ser necesario incluir un decimal, haga uso del punto decimal. Ej: 3 - 4.5"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor=" let regEC of regsEC">
+                                        <th scope="row">{{regEC.d_idEvaluacion | realName:evaluaciones:"d_id":"nombre"}}
+                                        </th>
+                                        <td>{{regEC.d_idCriterio | realName:criterios:"d_id":"competencia"}}</td>
+                                        <td>{{regEC.idCategoria | realName:categorias:"id":"nombre"}}</td>
+                                        <td>
+                                            <!-- formControlName="regEC.d_id" -->
+                                            <form class="d-flex justify-content-center" *ngIf="regsEC?.length > 0" [formGroup]="forma1" novalidate="novalidate">
+                                                <input [formControlName]="'ce'+regEC.d_id" [attr.data-ej]="regEC.d_id" [id]="'ce'+regEC.d_id" class="cajaBarra form-control " type="text" [value]="regEC.valor">
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="row pt-1 pb-4" *ngIf="regsEC?.length>0">
+                            <div class="col d-flex justify-content-center">
+                                <!-- <button [disabled]="!forma1.valid" (click)="prevCalificacionCriterios()" class="btn btn-primary">Estimar calificacion</button> -->
+                                <button (click)="calificarCriterios()" class="btn btn-primary">Guardar Calificación</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="regsEC?.length>0">
+                        <div class="table-responsive-sm" *ngFor=" let cE of calificacionE">
+                            <div class="w-100 subttable label-center sTB">{{cE.id | realName:evaluaciones:"d_id":"nombre"}}- Porcentaje de habilidad</div>
+                            <div class="w-100 subttable  "> Promedio: {{cE.promedio | number: '1.0-2'}}</div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="thBc" scope="col">Habilidad</th>
+                                        <th class="thBc" scope="col">Puntaje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor=" let pH of cE.porcentajeH">
+                                        <th scope="row">{{pH.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                        <td>{{pH.valor | number: '1.0-2'}}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="table-responsive-sm" *ngFor=" let cC of calificacionC">
+                            <div class="w-100 subttable label-center sTB">Porcentaje de habilidad para el corte #{{cC.idCorte}}
+                            </div>
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="thBc" scope="col">Habilidad</th>
+                                        <th class="thBc" scope="col">Puntaje</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor=" let pHC of cC.porcentajeHC">
+                                        <th scope="row">{{pHC.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                        <td>{{pHC.valor | number: '1.0-2'}}%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row d-flex justify-content-center mt-5" *ngIf="regC!=undefined">
+                        <div class="cardd p-2" data-toggle="tooltip" data-placement="bottom" title="Nota calculada con base a los criterios de evaluación calificados">
+                            <div class="font-weight-bold">
+                                <h2>Definitiva del corte <span class="badge badge-pill badge-info ml-1">#{{idCorte}}</span>
+                                </h2>
+                            </div>
+                            <div class="d-flex justify-content-center">
+
+                                <h3 *ngIf="idCorte==1" class="font-weight-bold">{{regC.corte1 | number:'1.0-2'}} </h3>
+                                <h3 *ngIf="idCorte==2" class="font-weight-bold">{{regC.corte2 | number:'1.0-2'}} </h3>
+                                <h3 *ngIf="idCorte==3" class="font-weight-bold">{{regC.corte2 | number:'1.0-2'}} </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="cardd  p-1 mb-1 mt-5">
+                <form [formGroup]="forma2" novalidate="novalidate" class="p-3">
+                    <h4><label> Observación</label></h4>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col justify-content-center">
+                            <div class="form-group label-center">
+                                <textarea class="form-control" formControlName="txtObservacion" placeholder="Mensaje de observación..." type="text">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="row mt-2 pb-4">
+                    <div class="col d-flex justify-content-center">
+                        <button (click)="crearObservacion()" class="btn btn-primary ">&nbsp;&nbsp;&nbsp;Guardar
+                            Observación&nbsp;&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-5 pb-3 flex-row-reverse noIMP">
+                <button (click)="imprimir()" class="btn btn-primary mr-3"><i class="fas fa-file-pdf">
+                        Imprimir</i></button>
+            </div>
+        </div>
+    </div>
+</div>

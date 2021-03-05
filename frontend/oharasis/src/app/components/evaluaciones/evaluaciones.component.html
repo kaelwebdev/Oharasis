@@ -1,0 +1,249 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Configurar evaluaciones</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','estudiantes',idCurso]">Estudiantes</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Evaluaciones
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid pb-3">
+            <div class="cardd p-3">
+                <h3>Grupos de evaluación</h3>
+                <form [formGroup]="forma2" novalidate="novalidate">
+                    <div class="row w-100 justify-content-between">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <label>Corte</label>
+                                <select class="form-control select-center select-hover" formControlName="lCortesGrupo"> 
+                                    <option value="">Seleccione un corte</option>
+                                    <option *ngFor="let corte of cortes" [value]="corte.id">{{corte.id}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-center">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <input class="form-control" required placeholder="nombre. Ej: talleres" formControlName="txtNombreGrupo" type="text">
+                                <div class="i-feedback" *ngIf="forma2.controls['txtNombreGrupo'].errors?.required">Este campo es requerido</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-center">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <input class="form-control" required placeholder="peso. Ej: 60" formControlName="pesoGrupo" type="number">
+                                <div class="i-feedback" *ngIf="forma2.controls['pesoGrupo'].errors?.required">Este campo es requerido</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="camposVacios && editState">
+                        Se deben llenar todos los campos
+                    </div>
+                    <div class="row mt-5 mb-5">
+                        <div class="col d-flex justify-content-center">
+                            <button *ngIf="!editState" [disabled]="!forma2.valid" type="submit" class="btn btn-primary mr-2" (click)="crearGrupo()">Crear</button>
+                        </div>
+                    </div>
+                    <div *ngIf="editState" class="alert alert-info animated fadeIn fast" role="alert">
+                        Usted se encuentra en el modo edición
+                    </div>
+                    <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Categoría creada satisfactoriamente
+                    </div>
+                    <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        La categoría no pudo ser creada
+                    </div>
+                    <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Categoría actualizada satisfactoriamente
+                    </div>
+                    <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                        La categoría no pudo ser actualizada
+                    </div>
+                    <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Categoría eliminada satisfactoriamente
+                    </div>
+                    <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                        La categoría no pudo ser eliminada
+                    </div>
+                    <div *ngIf="!forma2.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                        Campos de formulario sin definir, o datos invalidos
+                    </div>
+                </form>
+                <div class="row m-0 justify-content-center">
+                    <h4>Lista de grupos</h4>
+                </div>
+                <!-- table-primary, table-dark, table-info-->
+                <div class="table-responsive">
+                    <table class="table table-light border table-center rounded" *ngIf="grupos?.length > 0 > 0;else noItems2">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Peso</th>
+                                <th scope="col">Corte</th>
+                                <th scope="col">Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let grupo of grupos">
+                                <th scope="row">{{grupo.d_id}}</th>
+                                <td>{{grupo.nombre}} </td>
+                                <td>{{grupo.peso}}</td>
+                                <td>{{grupo.idCorte}} </td>
+                                <td><button (click)="deleteGrupo($event, grupo)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <ng-template class="i-feedback" #noItems2>
+                    <div class="alert alert-warning animated fadeIn fast" role="alert">
+                        No hay Grupos
+                    </div>
+                </ng-template>
+            </div>
+            <div class="cardd p-3">
+                <h3>Evaluaciones</h3>
+                <form [formGroup]="forma" novalidate="novalidate">
+                    <div class="row w-100 justify-content-between">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <label>Corte</label>
+                                <select class="form-control select-center select-hover" formControlName="lCortes"> 
+                                      <option value="">Seleccione un corte</option>
+                                      <option *ngFor="let corte of cortes" [value]="corte.id">{{corte.id}}</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-between">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <label>Grupo</label>
+                                <select class="form-control select-center select-hover" formControlName="lGrupos"> 
+                                      <option value="">Seleccione un corte</option>
+                                      <option *ngFor="let grupo of grupos" [value]="grupo.d_id">{{grupo.nombre}}</option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-center">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <input class="form-control" required placeholder="Escriba aqui el nombre de la evaluación" formControlName="txtNombreE" type="text">
+                                <div class="i-feedback" *ngIf="forma.controls['txtNombreE'].errors?.required">Este campo es requerido</div>
+                                <div *ngIf="forma.controls['txtNombreE'].errors?.maxlength">
+                                    El número de letras no debe ser mayor a {{forma.controls['txtNombreE'].errors.maxlength.requiredLength}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row w-100 justify-content-center">
+                        <div class="col">
+                            <div class="form-group label-center">
+                                <input class="form-control" required placeholder="Ej: 60" formControlName="pesoE" type="text">
+                                <div class="i-feedback" *ngIf="forma.controls['pesoE'].errors?.required">Este campo es requerido</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="camposVacios && editState">
+                        Se deben llenar todos los campos
+                    </div>
+                    <div class="row mt-5 mb-5">
+                        <div class="col d-flex justify-content-center">
+                            <button *ngIf="!editState" [disabled]="!forma.valid" type="submit" class="btn btn-primary mr-2" (click)="crearEvaluacion()">Crear</button>
+                            <button *ngIf="editState" [disabled]=" !forma.valid" type="submit" class="btn btn-primary mr-2" (click)="updateEvaluacion()">Guardar cambios</button>
+                            <button *ngIf="editState" type="submit" class="btn btn-warning" (click)="cancelarEdicion()">Cancelar edición</button>
+                        </div>
+                    </div>
+                    <div *ngIf="editState" class="alert alert-info animated fadeIn fast" role="alert">
+                        Usted se encuentra en el modo edición
+                    </div>
+                    <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Categoría creada satisfactoriamente
+                    </div>
+                    <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        La categoría no pudo ser creado
+                    </div>
+                    <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Categoría actualizada satisfactoriamente
+                    </div>
+                    <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                        La categoría no pudo ser actualizada
+                    </div>
+                    <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Categoría eliminada satisfactoriamente
+                    </div>
+                    <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                        La categoría no pudo ser eliminada
+                    </div>
+                    <div *ngIf="!forma.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                        Campos de formulario sin definir, o datos invalidos
+                    </div>
+                </form>
+                <div class="row m-0 justify-content-center">
+                    <h4>Lista de evalauciones</h4>
+                </div>
+                <!-- table-primary, table-dark, table-info-->
+                <div class="table-responsive">
+                    <table class="table border table-center rounded" *ngIf="evaluaciones?.length > 0 && cursos?.length > 0;else noItems">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Peso</th>
+                                <th scope="col">Corte</th>
+                                <th scope="col">Grupo</th>
+                                <th scope="col">Eliminar</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Criterios</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let evaluacion of evaluaciones">
+                                <th scope="row">{{evaluacion.d_id}}</th>
+                                <td>{{evaluacion.nombre}} </td>
+                                <td>{{evaluacion.peso}}</td>
+                                <td>{{evaluacion.idCorte}} </td>
+                                <td>{{evaluacion.d_idGrupo | realName:grupos:"d_id":"nombre"}} </td>
+                                <td><button (click)="deleteEvaluacion($event, evaluacion)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                                <td><button (click)="editEvaluacion($event, evaluacion)" type="submit" class="btn btn-warning"> <i class="fas fa-edit"></i>Editar </button></td>
+                                <td><button (click)="verCriterios(evaluacion.d_id)" type="submit" class="btn btn-primary"> <i class="fas fa-eye pr-1"></i>Ver </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <ng-template class="i-feedback" #noItems>
+                    <div class="alert alert-warning animated fadeIn fast" role="alert">
+                        No hay evaluaciones
+                    </div>
+                </ng-template>
+            </div>
+
+        </div>
+    </div>
+</div>

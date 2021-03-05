@@ -1,0 +1,196 @@
+<div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 mb-3 d-flex align-items-center" style="cursor: pointer">
+
+        <div class="image" id="colapsar" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <img [src]="'.'+user.urlImagen" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a class="d-block">{{user.nombre}} {{user.apellido}}</a>
+        </div>
+
+    </div>
+
+    <div class="collapse" id="collapseExample" style="cursor: pointer">
+        <a (click)="irAMiPerfil()" class="nav-link cerrarMenu" routerLinkActive="active">
+
+            <p><i class="fas fa-user"></i> &nbsp;&nbsp;Mi perfil</p>
+        </a>
+        <a (click)="irAEditarPerfil()" class="nav-link cerrarMenu" routerLinkActive="active">
+
+            <p><i class="fas fa-edit"></i> &nbsp;&nbsp;Editar perfil</p>
+        </a>
+        <a (click)="logOut()" class="nav-link cerrarMenu">
+
+            <p><i class="fas fa-door-open mr-2"></i> &nbsp;&nbsp;Cerrar sesión</p>
+        </a>
+    </div>
+
+
+    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex btn" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <div class="collapse" id="collapseExample">
+            <a (click)="irAMiPerfil()" class="nav-link" routerLinkActive="active">
+                <i class="fas fa-user"></i>
+                <p>Mi Perfil</p>
+            </a>
+            <a (click)="irAEditarPerfil()" class="nav-link " routerLinkActive="active">
+                <i class="fas fa-edit"></i>
+                <p>Editar Perfil</p>
+            </a>
+            <a (click)="logOut()" class="nav-link">
+                <i class="fas fa-door-open mr-2"></i>
+                <p>Cerrar Sesion</p>
+            </a>
+        </div>
+        <div class="image">
+            <img [src]="'.'+user.urlImagen" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+            <a class="d-block">{{user.nombre}} {{user.apellido}}</a>
+        </div>
+    </div> -->
+    <!-- Sidebar Menu -->
+    <nav class="mt-2 user-panel-line">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview menu-open">
+                <ul class="nav nav-treeview" *ngIf="user.rol=='Profesor'">
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['buscarCursos']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-search nav-icon"></i>
+                            <p class="pl-2">Cursos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['buscarUsuario']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-search nav-icon"></i>
+                            <p class="pl-2">Usuarios</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- fin menu -->
+
+            <li class="nav-item has-treeview menu-open">
+
+                <ul class="nav nav-treeview" *ngIf="user.rol=='Director'">
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['buscarCursos']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-search nav-icon"></i>
+                            <p>Cursos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['buscarUsuario']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-search nav-icon"></i>
+                            <p>Usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['asignarProfesor']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-random nav-icon"></i>
+                            <p>Asignar Profesor</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- fin menu -->
+
+            <li class="nav-item has-treeview menu-open">
+                <ul class="nav nav-treeview" *ngIf="user.rol=='Estudiante'">
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['mi-avatar']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-user-astronaut nav-icon"></i>
+                            <p>Mi avatar</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['buscarCursos']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-search nav-icon"></i>
+                            <p>Cursos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['misLogros']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-trophy nav-icon"></i>
+                            <p>Logros</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['buscarUsuario']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-search nav-icon"></i>
+                            <p>Usuarios</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- fin menu -->
+
+            <li class="nav-item has-treeview menu-open">
+                <ul class="nav nav-treeview" *ngIf="user.rol=='Admin'">
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregarAvatar']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-user-astronaut nav-icon"></i>
+                            <p>Agregar Avatar</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregarLogros']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-trophy nav-icon"></i>
+                            <p>Agregar Logros</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregarTipos']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>Agregar Tipos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['crearUsuarios']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-user-plus nav-icon"></i>
+                            <p>Crear Usuarios</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregarCursos']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>Agregar Cursos</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregarSo']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>Agregar So</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregar-pi']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>Agregar Pi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['matricularEstudiante']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-random nav-icon"></i>
+                            <p>Matricular Estudiante</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['agregarCategorias']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>Agregar Categoría</p>
+                        </a>
+                    </li>
+                    <li class="nav-item user-panel-line-generic">
+                        <a [routerLink]="['asignarProfesor']" class="nav-link" routerLinkActive="active">
+                            <i class="fas fa-random nav-icon"></i>
+                            <p>Asignar Profesor</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- fin menu -->
+        </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+</div>

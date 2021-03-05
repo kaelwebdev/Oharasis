@@ -1,0 +1,233 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Crear Usuarios</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Crear Usuarios
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <form [formGroup]="forma" novalidate="novalidate">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Tipo de usuario * </label>
+                            <select class="form-control select-center" formControlName="lRoles"> 
+                            <option value="">tipos de usuarios</option>
+                            <option *ngFor="let rol of roles" [value]="rol.id">{{rol.id}}</option>
+                        </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row border">
+
+                    <div class="col">
+                        <div class="row justify-content-center">
+                            <span class="badge badge-pill badge-info m-1">{{forma.controls['lRoles'].value}}</span>
+                        </div>
+                        <div class="row justify-content-center">
+                            <img *ngIf="forma.controls['lSexo'].value == ''" src="./assets/img/default-user-image.png" class="rounded-circle" style="width: 50%; height: 50%;">
+                            <img *ngIf="forma.controls['lSexo'].value == 'F'" src="./assets/img/UsuarioMujer.png" class="rounded-circle" style="width: 50%; height: 50%;">
+                            <img *ngIf="forma.controls['lSexo'].value == 'M'" src="./assets/img/UsuarioHombre.png" class="rounded-circle" style="width: 50%; height: 50%;">
+                        </div>
+                    </div>
+
+                    <div class="col pb-1 pt-1">
+                        <div class="row justify-content-center">
+                            <label for="txtAlias">Alias *</label>
+                        </div>
+                        <div class="row justify-content-center">
+                            <input class="form-control" placeholder="Alias" formControlName="txtAlias" type="text">
+                        </div>
+                        <div class="row justify-content-center">
+                            <label for="txtPassword">Password</label>
+                        </div>
+                        <div class="row justify-content-center">
+                            <input class="form-control" placeholder="Password" formControlName="txtPassword" type="password">
+                        </div>
+                        <div class="row justify-content-center">
+                            <label for="txtNombre">Nombre *</label>
+                        </div>
+                        <div class="row justify-content-center">
+                            <input class="form-control" placeholder="Nombre" formControlName="txtNombre" type="text">
+                        </div>
+                        <div class="row justify-content-center">
+                            <label for="inputApellido">Apellido *</label>
+                        </div>
+                        <div class="row justify-content-center">
+                            <input class="form-control" placeholder="Apellido" formControlName="txtApellido" type="text">
+                        </div>
+                        <div class="row justify-content-center">
+                            <label for="txtEmail">Email *</label>
+                        </div>
+                        <div class="row justify-content-center">
+                            <input class="form-control" placeholder="Email" formControlName="txtEmail" type="email">
+                        </div>
+                        <div class="form-group label-center">
+                            <label>Sexo * </label>
+                            <select class="form-control select-center" formControlName="lSexo"> 
+                          <option value="">Seleccione (M/F)</option>
+                          <option *ngFor="let sexo of sexos" [value]="sexo.id">{{sexo.nombre}}</option>
+                      </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3 mb-5">
+                    <div class="col d-flex justify-content-center">
+                        <button *ngIf="!editState" [disabled]="!forma.valid" type="submit" class="btn btn-primary mr-2" (click)="crearUsuario()">Crear</button>
+                        <button *ngIf="editState" [disabled]=" !forma.valid" type="submit" class="btn btn-primary mr-2" (click)="updateUsuario(usuario)">Guardar cambios</button>
+                        <button *ngIf="editState" type="submit" class="btn btn-warning" (click)="cancelarEdicion()">Cancelar Edicion</button>
+                    </div>
+                </div>
+
+                <div>
+                    <div *ngIf="editState" class="alert alert-info animated fadeIn fast" role="alert">
+                        Usted se encuentra en el modo edicion
+                    </div>
+                    <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Usuario creado satisfactoriamente
+                    </div>
+                    <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        El usuario no pudo ser creado
+                    </div>
+                    <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Usuario actualizado satisfactoriamente
+                    </div>
+                    <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                        El usuario no pudo ser actualizado
+                    </div>
+                    <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                        Usuario eliminado satisfactoriamente
+                    </div>
+                    <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                        El usuario no pudo ser eliminado
+                    </div>
+                    <div *ngIf="!forma.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                        campos de formulario sin definir, o datos invalidos
+                    </div>
+                </div>
+
+                <div class="row w-100 justify-content-between">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Filtrar por: </label>
+                            <select class="form-control select-center" id="" formControlName="lFiltros"> 
+                          <option value="">sin filtro</option>
+                          <option *ngFor="let filtro of filtros" [value]="filtro.id">{{filtro.nombre}}</option>
+                      </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="filtro=='alias'" class="row w-100 d-felx justify-content-center animated fadeIn fast">
+                    <div class="form-group label-center">
+                        <input class="form-control" placeholder="Alias" formControlName="ftxtAlias" type="text">
+                    </div>
+                </div>
+                <div *ngIf="filtro=='nombre'" class="row w-100 d-felx justify-content-center animated fadeIn fast">
+                    <div class="form-group label-center">
+                        <input class="form-control" placeholder="Alias" formControlName="ftxtNombre" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="filtro=='apellido'" class="row w-100 d-felx justify-content-center animated fadeIn fast">
+                    <div class="form-group label-center">
+                        <input class="form-control" placeholder="Apellido" formControlName="ftxtApellido" type="text">
+                    </div>
+                </div>
+
+                <div *ngIf="filtro=='email'" class="row w-100 d-felx justify-content-center animated fadeIn fast">
+                    <div class="form-group label-center">
+                        <input class="form-control" placeholder="Email" formControlName="ftxtEmail" type="email">
+                    </div>
+                </div>
+
+                <div *ngIf="filtro=='rol'" class="row w-100 justify-content-between animated fadeIn fast">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Tipo de usuario </label>
+                            <select class="form-control select-center" formControlName="flRoles"> 
+                          <option value="">Tipos de usuario </option>
+                          <option *ngFor="let rol of roles" [value]="rol.id">{{rol.id}}</option>
+                      </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="filtro=='sexo'" class="row w-100 justify-content-between animated fadeIn fast">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Sexo </label>
+                            <select class="form-control select-center" formControlName="flSexo"> 
+                          <option value="">Seleccione (M/F)</option>
+                          <option *ngFor="let sexo of sexos" [value]="sexo.id">{{sexo.nombre}}</option>
+                      </select>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </form>
+
+            <div class="table-responsive mb-3">
+                <table class="table table-dark table-center rounded animated fadeIn fast" *ngIf="usuarios?.length > 0;else noItems">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Alias</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Eliminar</th>
+                            <th scope="col">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor=" let usuario of usuarios">
+                            <th scope="row">{{usuario.d_id}}</th>
+                            <td>{{usuario.alias}} </td>
+                            <td>{{usuario.password}} </td>
+                            <td>{{usuario.nombre }}</td>
+                            <td>{{usuario.apellido}}</td>
+                            <td>{{usuario.email}}</td>
+                            <td>{{usuario.sexo}}</td>
+                            <td>{{usuario.rol}}</td>
+                            <td><button [disabled]="editState" (click)="deleteUsuario($event, usuario)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                            <td><button (click)="editUsuario($event, usuario)" type="submit" class="btn btn-warning"> <i class="fas fa-edit"></i>Editar </button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ng-template class="i-feedback" #noItems>
+                    <div class="alert alert-warning animated fadeIn fast" role="alert">
+                        No hay usuarios
+                    </div>
+                </ng-template>
+            </div>
+
+
+        </div>
+    </div>
+</div>

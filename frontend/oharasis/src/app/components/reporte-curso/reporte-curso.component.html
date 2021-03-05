@@ -1,0 +1,364 @@
+<div class="blank-content content-wrapper" id="canvasImp">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Reporte del curso
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','estudiantes',idCurso]">Estudiantes</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Reporte del curso
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <div class="row mt-5 pb-3 flex-row-reverse noIMP">
+                <button (click)="imprimir()" class="btn btn-primary mr-3"><i class="fas fa-file-pdf"> Imprimir</i></button>
+            </div>
+            <div id="asd">
+
+                <div class="cardd p-1">
+                    <h3 class="text-center">ABET-Estadísticas</h3>
+                    <!-- <div class="row mt-1 pb-1">
+                            <div class="col d-flex justify-content-center">
+                                <h1><span class="badge badge-info">Puntaje General ABET: {{calificacionAbet  | number: '1.0-2'}}%</span></h1>
+                            </div>
+                        </div> -->
+                    <label> Número de estudiantes: </label>
+                    <ul class="nav nav-tabs" id="myTab1" role="tablist">
+                        <li class="nav-item" *ngFor="let detallesCAPI1 of detallesCapIOrdenada; let i=index">
+                            <a class="nav-link tabsSO" (click)="cancelarGraficoSOPI()" [ngClass]="{'active': i==0}" [id]="'abet'+detallesCAPI1[0].idSo+'-tab'" data-toggle="tab" [href]="'#abet'+detallesCAPI1[0].idSo" role="tab" [attr.aria-controls]="'abet'+detallesCAPI1[0].idSo"
+                                [attr.aria-selected]="index==0?true:false">SO {{detallesCAPI1[0].idSo}}</a>
+                            <!-- <a class="nav-link active" [id]="home-tab" data-toggle="tab"
+                                     [href]="#home" role="tab" [attr.aria-controls]="home" [attr.aria-selected]="true">{{detallesCAPI1.idSo}}</a> -->
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div *ngFor="let detallesCAPI1 of detallesCapIOrdenada; let i=index" class="tab-pane fade" [id]="'abet'+detallesCAPI1[0].idSo" role="tabpanel" [ngClass]="{'show active' : i==0}" [attr.aria-labelledby]="'abet'+detallesCAPI1[0].idSo+'-tab'">
+                            <div class="row mt-5 pb-3 flex-row-reverse noIMP">
+                                <button (click)="graficarSOPI('SO'+detallesCAPI1[0].idSo)" *ngIf="graficoSOPI==false" class="btn btn-primary mr-3"><i class="far fa-chart-bar"></i> Gráfico</button>
+                                <button (click)="cancelarGraficoSOPI()" *ngIf="graficoSOPI" class="btn btn-primary mr-3"><i class="fas fa-table"></i> Tabla</button>
+                            </div>
+                            <table class="table" *ngIf="graficoSOPI==false">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th class="thBc" scope="col"> </th>
+                                        <th *ngFor="let detalleCAPI of detallesCAPI1;let i=index" class="thBc" scope="col">
+                                            PI{{i+1}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Sobresaliente </th>
+                                        <td *ngFor="let detalleCAPI of detallesCAPI1">
+                                            {{detalleCAPI.sobresaliente | number: '1.0-2'}}%
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Satisfactorio </th>
+                                        <td *ngFor="let detalleCAPI of detallesCAPI1">
+                                            {{detalleCAPI.satisfactorio | number: '1.0-2'}}%
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>En Desarrollo </th>
+                                        <td *ngFor="let detalleCAPI of detallesCAPI1">
+                                            {{detalleCAPI.enDesarrollo | number: '1.0-2'}}%
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Insuficiente </th>
+                                        <td *ngFor="let detalleCAPI of detallesCAPI1">
+                                            {{detalleCAPI.insuficiente | number: '1.0-2'}}%
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Porcentaje de Aprobación </th>
+                                        <td *ngFor="let detalleCAPI of detallesCAPI1">
+                                            {{detalleCAPI.porcentajeAprobacion | number: '1.0-2'}}%
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <div class="row m-0 d-flex justify-content-center">
+                                <div class="card maxW743" *ngIf="graficoSOPI">
+                                    <div class="card-header no-border noIMP">
+                                        <div class="d-flex justify-content-between">
+                                            <h3 class="card-title">Porcentajes de calificacion PI para SO {{detallesCAPI1[0].idSo}}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="card-body maxW743">
+                                        <div class="barras">
+                                            <div style="display: block">
+                                                <canvas baseChart [datasets]="barChartData2" [labels]="barChartLabels2" [plugins]="barChartPlugins" [colors]="chartColors2" [legend]="barChartLegend2" [chartType]="barChartType">
+                                        </canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- <div class="tab-pane fade show active" [id]="home" role="tabpanel" [attr.aria-labelledby]="home-tab">...</div> -->
+                    </div>
+                </div>
+
+
+                <div class="cardd p-1">
+                    <h3 class="text-center">Habildad-Estadísticas</h3>
+                    <ul class="nav nav-tabs noIMP" id="myTab2" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="corte0t-tab" data-toggle="tab" href="#corte0t" role="tab" aria-controls="corte1t" aria-selected="true">General</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="corte1t-tab" data-toggle="tab" href="#corte1t" role="tab" aria-controls="corte1t" aria-selected="true">Corte 1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="corte2t-tab" data-toggle="tab" href="#corte2t" role="tab" aria-controls="corte2t" aria-selected="false">Corte 2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="corte3-tab" data-toggle="tab" href="#corte3" role="tab" aria-controls="corte3" aria-selected="false">Corte 3</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="corte0t" role="tabpanel" aria-labelledby="corte0t-tab">
+                            <!-- <div class="table-responsive-sm" *ngFor=" let cE of calificacionE[0]">
+                                        <div class="w-100 subttable label-center sTB">{{cE.id | realName:evaluaciones:"d_id":"nombre"}}- Porcentaje de habilidad</div>
+                                        <div class="w-100 subttable  "> Promedio: {{cE.promedio | number: '1.0-2'}}</div>
+                                        <table class="table">
+                                            <thead class="thead-dark">
+                                                <tr>
+                                                    <th class="thBc" scope="col">Habilidad</th>
+                                                    <th class="thBc" scope="col">Puntaje</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor=" let pH of cE.porcentajeH">
+                                                    <th scope="row">{{pH.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                                    <td>{{pH.valor | number: '1.0-2'}}%</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> -->
+                            <div class="table-responsive-sm" *ngFor=" let cC of calificacionC[0]">
+                                <div class="w-100 subttable label-center sTB">Porcentaje de habilidad del curso</div>
+                                <table class="table table-light">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="thBc" scope="col">Habilidad</th>
+                                            <th class="thBc" scope="col">Puntaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let pHC of cC.porcentajeHC">
+                                            <th scope="row">{{pHC.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                            <td>{{pHC.valor | number: '1.0-2'}}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="corte1t" role="tabpanel" aria-labelledby="corte1t-tab">
+                            <div class="table-responsive-sm" *ngFor=" let cE of calificacionE[1]">
+                                <div class="w-100 subttable label-center sTB">{{cE.id | realName:evaluaciones:"d_id":"nombre"}}- Porcentaje de habilidad</div>
+                                <div class="w-100 subttable  "> Promedio: {{cE.promedio | number: '1.0-2'}}</div>
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="thBc" scope="col">Habilidad</th>
+                                            <th class="thBc" scope="col">Puntaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let pH of cE.porcentajeH">
+                                            <th scope="row">{{pH.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                            <td>{{pH.valor | number: '1.0-2'}}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="corte2t" role="tabpanel" aria-labelledby="corte2t-tab">
+                            <div class="table-responsive-sm" *ngFor=" let cE of calificacionE[2]">
+                                <div class="w-100 subttable label-center sTB">{{cE.id | realName:evaluaciones:"d_id":"nombre"}}- Porcentaje de habilidad</div>
+                                <div class="w-100 subttable  "> Promedio: {{cE.promedio | number: '1.0-2'}}</div>
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="thBc" scope="col">Habilidad</th>
+                                            <th class="thBc" scope="col">Puntaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let pH of cE.porcentajeH">
+                                            <th scope="row">{{pH.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                            <td>{{pH.valor | number: '1.0-2'}}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="corte3" role="tabpanel" aria-labelledby="corte3-tab">
+                            <div class="table-responsive-sm" *ngFor=" let cE of calificacionE[3]">
+                                <div class="w-100 subttable label-center sTB">{{cE.id | realName:evaluaciones:"d_id":"nombre"}}- Porcentaje de habilidad</div>
+                                <div class="w-100 subttable  "> Promedio: {{cE.promedio | number: '1.0-2'}}</div>
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="thBc" scope="col">Habilidad</th>
+                                            <th class="thBc" scope="col">Puntaje</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor=" let pH of cE.porcentajeH">
+                                            <th scope="row">{{pH.idCategoria | realName:categorias:"id":"nombre"}}</th>
+                                            <td>{{pH.valor | number: '1.0-2'}}%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="graficos row d-flex justify-content-center align-items-center" *ngIf="graficar">
+                <!-- [datasets]="doughnutChartDatasets" [data]="doughnutChartData"-->
+
+                <div class="col-12 maxW600">
+                    <ul class="nav nav-tabs noIMP" id="myTab3" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="BarrCH-tab" data-toggle="tab" href="#BarrCH" role="tab" aria-controls="BarrCH" aria-selected="true">Digrama de barras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="DonaCH-tab" data-toggle="tab" href="#DonaCH" role="tab" aria-controls="DonaCH" aria-selected="false">Diagrama de dona</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="Radar-tab" data-toggle="tab" href="#Radar" role="tab" aria-controls="Radar" aria-selected="false">Diagrama de radar</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="BarrCH" role="tabpanel" aria-labelledby="BarrCH-tab">
+                            <div class="IMP impvc"></div>
+                            <div class="IMP">
+                                <h1>Porcentaje de habilidad del curso</h1>
+                            </div>
+                            <div class="card">
+                                <div class="card-header no-border noIMP">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="card-title">Porcentaje de habilidad del curso</h3>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="barras">
+                                        <div style="display: block">
+                                            <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [colors]="chartColors" [options]="barChartOptions" [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+                                    </canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="DonaCH" role="tabpanel" aria-labelledby="DonaCH-tab">
+                            <div class="IMP impvc"></div>
+                            <div class="IMP">
+                                <h1>Porcentaje de habilidad del curso</h1>
+                            </div>
+                            <div class="card">
+                                <div class="card-header no-border noIMP">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="card-title">Porcentaje de habilidad del curso</h3>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="dona">
+                                        <div>
+                                            <div>
+                                                <div style="display: block">
+                                                    <canvas baseChart [datasets]="doughnutChartDatasets" [colors]="chartColors" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [options]="doughnutChartOptions">
+                                        </canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade " id="Radar" role="tabpanel" aria-labelledby="Radar-tab">
+                            <div class="IMP impvc"></div>
+                            <div class="IMP">
+                                <h1>Porcentaje de habilidad del curso</h1>
+                            </div>
+                            <div class="card">
+                                <div class="card-header no-border noIMP">
+                                    <div class="d-flex justify-content-between">
+                                        <h3 class="card-title">Porcentaje de habilidad del curso</h3>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="deRadar">
+                                        <div>
+                                            <div>
+                                                <div style="display: block">
+                                                    <canvas baseChart [datasets]="radarChartData" [options]="radarChartOptions" [labels]="doughnutChartLabels" [chartType]="radarChartType">
+                                      </canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class=" col-12 maxW600">
+                    <div class="card">
+                        <div class="card-header no-border noIMP">
+                            <div class="d-flex justify-content-between">
+                                <h3 class="card-title">Comparativa de habilidad por cortes</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="lineas">
+                                <div style="display: block;">
+                                    <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+                              </canvas>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mt-5 pb-3 flex-row-reverse noIMP">
+                <button (click)="imprimir()" class="btn btn-primary mr-3"><i class="fas fa-file-pdf"> Imprimir</i></button>
+            </div>
+        </div>
+    </div>
+</div>

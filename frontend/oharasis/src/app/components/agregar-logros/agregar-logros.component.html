@@ -1,0 +1,142 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Agregar Logro</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            agregar logro
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <form [formGroup]="forma" novalidate="novalidate">
+                <div class="row w-100 justify-content-center">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <input class="form-control" placeholder="id" formControlName="txtId" type="text">
+                            <div class="i-feedback" *ngIf="forma.controls['txtId'].errors?.required">Este campo es requerido</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100 justify-content-center">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <input class="form-control" placeholder="Nombre de logro" formControlName="txtNombre" type="text">
+                            <div class="i-feedback" *ngIf="forma.controls['txtNombre'].errors?.required">Este campo es requerido</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row w-100 justify-content-center">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <input class="form-control" placeholder="Descripcion" formControlName="txtDescripcion" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5 mb-5">
+                    <div class="col d-flex justify-content-center">
+                        <button *ngIf="!editState" [disabled]="!forma.valid || yaExiste" type="submit" class="btn btn-primary mr-2" (click)="crearLogro()">Crear</button>
+                        <button *ngIf="editState" [disabled]=" !forma.valid" type="submit" class="btn btn-primary mr-2" (click)="updateLogro(logro)">Guardar cambios</button>
+                        <button *ngIf="editState" type="submit" class="btn btn-warning" (click)="cancelarEdicion()">Cancelar Edicion</button>
+                    </div>
+                </div>
+                <div *ngIf="editState" class="alert alert-info animated fadeIn fast" role="alert">
+                    Usted se encuentra en el modo edicion
+                </div>
+                <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Logro creada satisfactoriamente
+                </div>
+                <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    La logro no pudo ser creado
+                </div>
+                <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Logro actualizada satisfactoriamente
+                </div>
+                <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                    La logro no pudo ser actualizado
+                </div>
+                <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Logro eliminada satisfactoriamente
+                </div>
+                <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                    La Logro no pudo ser eliminada
+                </div>
+                <div *ngIf="!forma.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                    campos de formulario sin definir, o datos invalidos
+                </div>
+                <div *ngIf="yaExiste" class="alert alert-danger animated fadeIn fast" role="alert">
+                    el id ya existe
+                </div>
+                <div class="row w-100 justify-content-between">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Filtrar por: </label>
+                            <select class="form-control select-center" id="" formControlName="lFiltros"> 
+                        <option value="">sin filtro</option>
+                        <option *ngFor="let filtro of filtros" [value]="filtro.id">{{filtro.nombre}}</option>
+                    </select>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="filtro=='id'" class="row w-100 justify-content-center animated fadeIn fast">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <input class="form-control" placeholder="Filtrar" formControlName="ftxtId" type="text">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="filtro=='nombre'" class="row w-100 justify-content-center animated fadeIn fast">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <input class="form-control" placeholder="Filtrar" formControlName="txtFiltro" type="text">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <!-- table-primary, table-dark, table-info-->
+            <div class="table-responsive mb-3">
+                <table class="table table-dark table-center rounded animated fadeIn fast" *ngIf="logros?.length > 0;else noItems">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Eliminar</th>
+                            <th scope="col">Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor=" let logro of logros">
+                            <th scope="row">{{logro.id}}</th>
+                            <td>{{logro.nombre}} </td>
+                            <td>{{logro.descripcion}} </td>
+                            <td><button [disabled]="editState" (click)="deleteLogro($event, logro)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                            <td><button (click)="editLogro($event, logro)" type="submit" class="btn btn-warning"> <i class="fas fa-edit"></i>Editar </button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ng-template class="i-feedback" #noItems>
+                <div class="alert alert-warning animated fadeIn fast" role="alert">
+                    No hay logros
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

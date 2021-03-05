@@ -1,0 +1,126 @@
+<!-- big-container -->
+<div class="contenedor-padre">
+
+    <!-- backgroung-img -->
+    <div id="bg">
+        <img class="bg-img" src="../../../../assets/img/bg/bg-img.jpg" alt="bg-img">
+    </div>
+    <!--/. backgroung-img -->
+
+    <!-- container svg -->
+    <div class="container-svg">
+
+        <!-- particle js && clip-path -->
+        <div id="particle-js" class="clip"></div>
+        <!--/. particle js && clip-path -->
+
+        <!-- carga svg -->
+        <svg id="morph" height="100%" width="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+          <path class="morph" d="M1026,0c0,0,85,246-240,396c-181.3,83.7,183,297-91,425c-216,100.9-119,190-182,259c-0.3,0.3-513,0-513,0V0 H1026z" fill="#3a3b3f">
+          </path>
+      </svg>
+        <!--./ carga svg -->
+
+    </div>
+    <!--/. container svg -->
+
+    <!-- container form -->
+    <div class="container-form">
+
+        <!-- container icono login -->
+        <div class="img-logo-login animate fadeIn fast" id="animation-icon">
+
+            <a [routerLink]="['/home']">
+                <img src="../../../assets/img/icons/icon-login/oharasisLogo.png" alt="">
+            </a>
+
+        </div>
+        <!--./ container icono login -->
+
+        <!-- form centrado-->
+        <div class="center-element-form">
+
+            <!-- form -->
+            <form [formGroup]="loginForm" (ngSubmit)="submitLogin()" novalidate="novalidate" class="formulario animate fadeIn fast" id="login-form">
+
+                <!-- container elements -->
+                <div class="containerWrapper-elements">
+
+                    <!-- title & subtitle -->
+                    <div class="title-login title-font-w title-font-c font-botton">
+                        ¡Bienvenido de nuevo!
+                    </div>
+
+                    <div class="subtitle-login subtitle-font-w-n">
+                        ¡Estamos muy entusiasmados por tenerte aquí!
+                    </div>
+                    <!--/. title & subtitle -->
+
+                    <!-- container inputs form -->
+                    <div class="container-block container-margint">
+
+                        <!-- input email / username-->
+                        <div class="container-input-email">
+                            <h5 class="title-email font-botton">
+                                Nombre de usuario
+                            </h5>
+                            <div class="campo-input-email">
+                                <input formControlName="username" type="text" id="username" autocomplete="off" required="" autofocus="" spellcheck="false" class="input-color-email input-def-email input-decorator-email input-font-s-email">
+                            </div>
+                        </div>
+                        <!--/. input email / username -->
+
+                        <!-- input password -->
+                        <div class="container-input-password">
+                            <h5 class="title-password font-botton">
+                                Contraseña
+                            </h5>
+                            <div class="campo-input-password">
+                                <input formControlName="password" type="password" autocomplete="off" required="" spellcheck="false" class="input-color-password input-def-password input-decorator-password input-font-s-password" required="">
+                            </div>
+                        </div>
+                        <!--/. input password -->
+
+                        <!-- <button type="submit" class="btn button-color button-f font-botton button-full button-lookFilled" id="btn-click">
+                          <div class="button-text">
+                              Iniciar sessión
+                          </div>
+                      </button> -->
+
+                        <button [disabled]="!loginForm.valid" form="login-form" type="submit" class="btn btn-primary button-f font-botton button-full button-lookFilled">
+                          <div class="button-text">
+                              Iniciar sesión
+                          </div>
+                      </button>
+
+                        <div class="container-registrarse">
+                            <span class="text-necesitas-cuenta">
+                              ¿Necesitas una cuenta?
+                          </span>
+                            <button type="button" class="color-registrate registrate-t registrate-button">
+                              <div [routerLink]="['/register']" class="content-text-registrate">
+                                  Regístrate
+                              </div>
+                          </button>
+                            <!-- <button type="button" class="btn btn-primary" id="btn-click">Effect</button> -->
+                        </div>
+
+                    </div>
+                    <!--/. container inputs form -->
+
+                </div>
+                <!-- container elements -->
+
+
+            </form>
+            <!-- form -->
+
+        </div>
+        <!--/. form centrado-->
+
+
+    </div>
+    <!-- container form -->
+
+</div>
+<!--/. big-container -->

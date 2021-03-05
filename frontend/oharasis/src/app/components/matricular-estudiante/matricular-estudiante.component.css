@@ -1,0 +1,91 @@
+.label-center {
+    text-align: center;
+}
+
+.select-center {
+    margin: auto;
+    width: auto;
+}
+
+.blank-content {
+    min-height: 600px;
+    background-color: #f5f5f5;
+}
+
+.text-area {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 74px;
+}
+
+.table-center {
+    margin: auto;
+    width: auto;
+}
+
+th {
+    text-align: center;
+}
+
+.blank-content {
+    min-height: 600px;
+}
+
+.table-dark {
+    background-color: rgb(75, 84, 92);
+}
+
+.alert {
+    margin-top: 10px;
+}
+
+.alert-warning {
+    color: #856404 !important;
+    background-color: #fff3cd !important;
+    border-color: #ffeeba !important;
+}
+
+.alert-info {
+    color: #0c5460 !important;
+    background-color: #d1ecf1 !important;
+    border-color: #bee5eb !important;
+}
+
+.alert-success {
+    color: #155724 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+}
+
+.alert-danger {
+    color: #721c24 !important;
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb !important;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fast {
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}

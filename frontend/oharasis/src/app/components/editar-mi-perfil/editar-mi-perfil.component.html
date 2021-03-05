@@ -1,0 +1,167 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Editar perfil</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarUsuario']">Usuarios</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Editar perfil
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+
+            <!-- Contenedor de ambos elementos -->
+            <div class="row">
+                <!-- Previsualización perfil -->
+                <div class="col-lg-4 col-md-5">
+                    <div *ngIf="usuario" class="card card-user">
+                        <div class="image">
+                            <img src="../../../assets/img/bg/background.jpg" alt="..." />
+                        </div>
+                        <div class="content">
+                            <div class="author">
+                                <img class="avatar border-white" [src]="'../../.'+usuario.urlImagen" alt="..." />
+                                <div>
+                                    <span class="badge badge-pill badge-info text-pildora">{{usuario.rol}}</span>
+                                </div>
+                                <h4 class="title"> {{usuario.nombre}} {{usuario.apellido}}</h4>
+                                <div>
+                                    <div class="text-pildora color">{{usuario.alias}}</div>
+                                    <div class="text-pildora"> {{usuario.email}} </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <div class="row">
+                                <div class="col">
+                                    <h5><small> {{ usuario.descripcion }}</small></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--/. Previsualización perfil -->
+
+                <!-- Editar perfil -->
+                <div class="col-lg-8 col-md-7">
+                    <div class="card">
+                        <div class="header">
+                            <h4 class="title">Editar perfil</h4>
+                        </div>
+                        <div class="content">
+                            <form [formGroup]="forma" novalidate="novalidate">
+                                <div class="row">
+                                    <div class="col-md-6" [ngClass]="{'was-validated': forma.get('txtNombre').valid}">
+                                        <div class="form-group ">
+                                            <label>Nombre</label><span class="invalid-feedback" *ngIf="forma.controls['txtNombre'].errors?.required">Completar campo</span>
+                                            <input formControlName="txtNombre" type="text" class="form-control border-input is-invalid" placeholder="Nombre">
+                                            <div class="i-feedback" *ngIf="forma.controls['txtNombre'].errors?.required">Este campo es requerido</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Apellido</label>
+                                            <input formControlName="txtApellido" type="text" class="form-control border-input" placeholder="Apellido">
+                                            <div class="i-feedback" *ngIf="forma.controls['txtApellido'].errors?.required">Este campo es requerido</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Nombre de usuario</label><i class="fas fa-info-circle pl-1" data-toggle="tooltip" data-placement="top" title="Es usado para hacer login. tambien llamdo nickname, o alias."></i>
+                                            <input formControlName="txtAlias" type="text" class="form-control border-input" placeholder="Nombre de usuario">
+                                            <div class="i-feedback" *ngIf="forma.controls['txtAlias'].errors?.required">Este campo es requerido</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Correo electrónico</label>
+                                            <input formControlName="txtEmail" type="email" class="form-control border-input" placeholder="Correo electrónico">
+                                            <div class="i-feedback" *ngIf="forma.controls['txtEmail'].errors?.required">Este campo es requerido</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Contraseña</label>
+                                            <input formControlName="txtPassword" type="password" class="form-control border-input" placeholder="Contraseña" value="">
+                                            <div class="i-feedback" *ngIf="forma.controls['txtPassword'].errors?.required">Este campo es requerido</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group label-center">
+                                            <label>Sexo</label>
+                                            <select formControlName="lSexos" class="form-control select-center border-input select-hover"> 
+                                                <option value="">Sexo</option>
+                                                <option *ngFor="let sexo of sexos" [value]="sexo.id">{{sexo.id}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div *ngIf="user.rol == 'Estudiante'" class="col-md-12">
+                                        <div class="form-group label-center">
+                                            <label>Mi avatar * </label>
+                                            <select formControlName="lAvatares" class="form-control select-center border-input"> 
+                                        <!-- <option value="">Seleccionar Avatar</option> -->
+                                        <option *ngFor="let avatarId of avataresDisponibles"
+                                   [value]="avatarId">{{avatarId | realName:avataresT:"id":"nombre"}}</option>
+                                    </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Descripción</label> <i class="fas fa-info-circle pl-1" data-toggle="tooltip" data-placement="top" title="Este campo hace referencia a una descipción personal de usted mismo."></i>
+                                            <textarea formControlName="txtDescripcion" rows="5" class="form-control border-input" placeholder="Here can be your description" value="Mike">Soy estudiante de ingenieria multimedia de 2 semestre.
+                                            </textarea>
+                                            <!-- <div class="i-feedback" *ngIf="forma.controls['txtDescripcion'].errors?.required">Este campo es requerido</div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="col d-flex justify-content-center">
+                                        <button [disabled]="!forma.valid" (click)="updateUsuario()" type="submit" class="btn btn-warning"><i class="fas fa-edit"></i>Guardar cambios </button>
+                                    </div>
+                                    <div *ngIf="editado[0]" class="alert alert-info animated fadeIn fast" role="alert">
+                                        Editado satisfactoriamente
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Editar perfil -->
+            </div>
+            <!-- Contenedor de ambos elementos -->
+
+        </div>
+    </div>

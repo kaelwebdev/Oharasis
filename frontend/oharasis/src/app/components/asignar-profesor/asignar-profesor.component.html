@@ -1,0 +1,64 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        Asignar Profesor</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Asignar Profesor
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content blank-content">
+        <div class="container-fluid">
+            <form [formGroup]="forma" novalidate="novalidate">
+                <div class="row w-100 justify-content-between">
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Profesor *</label>
+                            <select class="form-control select-center" id="" formControlName="lProfesores"> 
+                  <option value="">Seleccione un profesor</option>
+                  <option *ngFor="let profesor of profesores" [value]="profesor.d_id">{{profesor.nombre}} {{profesor.apellido}}</option>
+              </select>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group label-center">
+                            <label>Curso *</label>
+                            <select class="form-control select-center" id="" formControlName="lCursos"> 
+                  <option value="">Seleccione un curso</option>
+                  <option *ngFor="let curso of cursos" [value]="curso.d_id">
+                    {{curso.nombre}}-A{{curso.year}}-P{{curso.idPeriodo}}-G{{curso.idGrupo}}
+                  </option>
+              </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col d-flex justify-content-center">
+                        <button [disabled]="!forma.valid" type="submit" class="btn btn-primary mr-2" (click)="actualizarCurso()">Asignar</button>
+                    </div>
+                </div>
+                <div *ngIf="asignado[0]==true && asignado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                    Curso asignado satisfactoriamente
+                </div>
+                <div *ngIf="asignado[0]==false && asignado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                    El curso no pudo ser asignado
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

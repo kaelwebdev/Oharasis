@@ -1,0 +1,129 @@
+<div class="blank-content content-wrapper">
+
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Agregar criterios de evaluación</h1>
+                    <span class="badge badge-primary mt-1" *ngIf="evaluacion!=undefined">
+                        <h4>{{evaluacion.nombre}}</h4>
+                    </span>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user']">Usuario</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a [routerLink]="['/user','buscarCursos']">Cursos</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Estudiantes
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Evaluaciones
+                        </li>
+                        <li class="breadcrumb-item active">
+                            Agregar criterios
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="content-header">
+        <div class="col-md-12 table-responsive mt-3">
+            <div class="content blank-content cardd p-3">
+                <div class="container-fluid">
+                    <form [formGroup]="forma" novalidate="novalidate">
+                        <div *ngIf="categorias?.length > 0" class="row w-100 justify-content-between">
+                            <div class="col pt-3">
+                                <div class="form-group label-center">
+                                    <label>Categorías</label>
+                                    <select class="form-control select-center select-hover" id="" formControlName="lCategorias"> 
+                                                <option value="">Seleccione una categoría</option>
+                                                <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</option>
+                                            </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col justify-content-center">
+                                <div class="form-group label-center">
+                                    <textarea class="form-control" required placeholder="Escriba aquí una competencia..." id="" rows="3" formControlName="txtACompetencias">
+                                            </textarea>
+                                    <div class="i-feedback" *ngIf="forma.controls['txtACompetencias'].errors?.required">Este campo es requerido</div>
+                                    <div *ngIf="forma.controls['txtACompetencias'].errors?.minlength">
+                                        El número de letras debe ser mayor a {{forma.controls['txtACompetencias'].errors.minlength.requiredLength}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="camposVacios && editState">
+                            Se deben llenar todos los campos
+                        </div>
+                        <div class="row mt-5 mb-5">
+                            <div class="col d-flex justify-content-center">
+                                <button *ngIf="!editState" [disabled]="!forma.valid" type="submit" class="btn btn-primary mr-2" (click)="crearCriterio()">Crear</button>
+                                <button *ngIf="editState" [disabled]=" !forma.valid" type="submit" class="btn btn-primary mr-2" (click)="updateCriterio(criterio)">Guardar cambios</button>
+                                <button *ngIf="editState" type="submit" class="btn btn-warning" (click)="cancelarEdicion()">Cancelar Edición</button>
+                            </div>
+                        </div>
+                        <div *ngIf="editState" class="alert alert-info animated fadeIn fast" role="alert">
+                            Usted se encuentra en el modo edición
+                        </div>
+                        <div *ngIf="creado[0]==true && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                            Criterio creado satisfactoriamente
+                        </div>
+                        <div *ngIf="creado[0]==false && creado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                            EL criterio no pudo ser creado
+                        </div>
+                        <div *ngIf="editado[0]==true && editado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                            Criterio actualizado satisfactoriamente
+                        </div>
+                        <div *ngIf="editado[0]==false && editado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                            El criterio no pudo ser actualizado
+                        </div>
+                        <div *ngIf="eliminado[0]==true && eliminado[1]==true" class="alert alert-success animated fadeIn fast" role="alert">
+                            Criterio eliminado satisfactoriamente
+                        </div>
+                        <div *ngIf="eliminado[0]==false && eliminado[1]==true" class="alert alert-danger animated fadeIn fast" role="alert">
+                            El criterio no pudo ser eliminado
+                        </div>
+                        <div *ngIf="!forma.valid" class="alert alert-warning animated fadeIn fast" role="alert">
+                            Campos de formulario sin definir, o datos invalidos
+                        </div>
+                    </form>
+
+                    <!-- table-primary, table-dark, table-info-->
+                    <table class="table border table-center rounded" *ngIf="criterios?.length > 0;else noItems">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Competencia</th>
+                                <th scope="col">Categoría</th>
+                                <th scope="col">Eliminar</th>
+                                <th scope="col">Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor=" let criterio of criterios">
+                                <th scope="row">{{criterio.d_id}}</th>
+                                <td>{{criterio.competencia}} </td>
+                                <td>{{criterio.idCategoria | realName:categorias:"id":"nombre"}}</td>
+                                <td><button (click)="deleteCriterio($event, criterio)" type="submit" class="btn btn-danger"><i class="fas fa-trash-alt pr-1"></i>Eliminar</button></td>
+                                <td><button (click)="editCriterio($event, criterio)" type="submit" class="btn btn-warning"> <i class="fas fa-edit"></i>Editar </button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <ng-template class="i-feedback" #noItems>
+                        <div class="alert alert-warning animated fadeIn fast" role="alert">
+                            No hay criterios
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
